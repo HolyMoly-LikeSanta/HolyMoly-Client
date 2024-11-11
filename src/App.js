@@ -3,12 +3,14 @@ import "./App.css";
 import styled from "styled-components";
 import Home from "./pages/homepage/Home";
 import { Route, Routes } from "react-router-dom";
+import { Login } from "./pages/Login";
 
 function App() {
   return (
     <AppDom>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
+        <Route path="login" element={<Login />} />
       </Routes>
     </AppDom>
   );
