@@ -1,6 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 // 데이터: 각 아이템에 이미지와 작성자 정보 추가
 const data = [
