@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Home from "./pages/homepage/Home";
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
+import Letter from "./pages/letterpage/Letter";
+import Invite from "./pages/invitepage/Invite";
+import InviteForm from "./pages/invitepage/InviteForm";
+import Letterwrite from "./pages/letterpage/Letterwrite";
 
 function App() {
   return (
@@ -11,6 +15,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="login" element={<Login />} />
+        <Route path="invite" element={<Invite />} />
+        <Route path="inviteform" element={<InviteForm />} />
+        <Route path="/letter" element={<Letter />} />
+        <Route path="/letterwrite" element={<Letterwrite />} />
       </Routes>
     </AppDom>
   );
@@ -32,3 +40,9 @@ const AppDom = styled.div`
     height: calc(var(--vh, 1vh) * 100);
   }
 `;
+
+// view height 변수 설정
+window.addEventListener("resize", () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+});
