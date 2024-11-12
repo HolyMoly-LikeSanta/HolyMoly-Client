@@ -1,5 +1,10 @@
-.App {
-  width: 100%;
-  max-width: 390px; /* 모바일 너비 고정 */
-  margin: 0 auto;   /* 가운데 정렬 */
+@font-face {
+  font-family: 'UhBee_SeHyun_Regular';
+  font-weight: normal;
+  src: url('/public/fonts/UhBee_SeHyun_Regular.ttf') format('truetype');
+
+}
+
+body {
+  font-family: 'UhBee_SeHyun_Regular';
 }
