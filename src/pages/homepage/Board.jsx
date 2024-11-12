@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
 
 // 데이터: 각 아이템에 이미지와 작성자 정보 추가
 const data = [
@@ -81,40 +82,68 @@ const Board = () => {
     rows: 2,
   };
 
+  const navigate = useNavigate();
+
+  const handleItemClick = (item) => {
+    navigate("/letter", { state: item });
+  };
+
   return (
     <BoardWrapper>
-      <ImgBackground>
-        {/* 슬라이드로 아이템을 표시 */}
-        <SliderWrapper>
-          <Slider {...settings}>
-            {data.map((item, index) => (
-              <ItemRow>
-                <BoardItem>
-                  <ItemImage src={item.image} alt={`Item ${index + 1}`} />
-                  <ItemText>{item.author}</ItemText>
-                </BoardItem>
-              </ItemRow>
-            ))}
-          </Slider>
-        </SliderWrapper>
-      </ImgBackground>
+      <Conatiner>
+        <ImgBackground>
+          <YellowCircle src="/image/PenCircle.png" alt="" />
+          {/* 슬라이드로 아이템을 표시 */}
+          <SliderWrapper>
+            <Slider {...settings}>
+              {data.map((item, index) => (
+                <ItemRow>
+                  <BoardItem onClick={() => handleItemClick(item)}>
+                    <ItemImage src={item.image} alt={`Item ${index + 1}`} />
+                    <ItemText>{item.author}</ItemText>
+                  </BoardItem>
+                </ItemRow>
+              ))}
+            </Slider>
+          </SliderWrapper>
+        </ImgBackground>
+      </Conatiner>
     </BoardWrapper>
   );
 };
 
 export default Board;
 
-// 스타일 컴포넌트
 const BoardWrapper = styled.div`
   position: relative;
   width: 100%;
-  margin-top: 70px;
+  top: 120px;
+  max-height: calc(
+    100vh - 70px
+  ); /* 화면 높이에서 TopNavBack과 패딩을 뺀 최대 높이 */
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+`;
+
+const Conatiner = styled.div`
+  margin-right: 50px;
+  padding: 1rem;
+  width: 45%;
+  background-color: #14532d;
+  border-radius: 1rem;
+  box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+
+  @media screen and (max-width: 600px) {
+    width: 60%;
+    margin-right: 30px;
+  }
 `;
 
 const ImgBackground = styled.div`
   position: relative;
   max-height: 300px;
-  width: 60%;
+  width: 100%;
   padding: 20px 10px;
   // background-image: url("image/Board.png");
   // background-position: center;
@@ -127,6 +156,13 @@ const ImgBackground = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+`;
+
+const YellowCircle = styled.img`
+  position: absolute;
+  width: 1rem;
+  top: 1rem;
+  right: 1rem;
 `;
 
 const SliderWrapper = styled.div`
