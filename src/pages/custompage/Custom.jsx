@@ -19,17 +19,28 @@ export const Custom = () => {
                 <CompleteButton>완료</CompleteButton>
             </MainContainer>
             <CustomElementContainer>
-                <Selection>
-                    <Category selected={selectedCategory === 'background'} onClick={()=>{handleSelect('background')}}>배경</Category>
-                    <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                    <Category selected={selectedCategory === 'hair'} onClick={()=>{handleSelect('hair')}}>머리</Category>
-                    <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                    <Category selected={selectedCategory === 'face'} onClick={()=>{handleSelect('face')}}>얼굴</Category>
-                    <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                    <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleSelect('clothes')}}>옷</Category>
-                    <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                    <Category selected={selectedCategory === 'accessary'} onClick={()=>{handleSelect('accessary')}}>악세사리</Category>
-                </Selection>
+                <SelectionContainer>
+                    <Selection>
+                        <Category selected={selectedCategory === 'background'} onClick={()=>{handleSelect('background')}}>배경</Category>
+                        <SelectionDivider src="/image/Separator.png"></SelectionDivider>
+                        <Category selected={selectedCategory === 'hair'} onClick={()=>{handleSelect('hair')}}>머리</Category>
+                        <SelectionDivider src="/image/Separator.png"></SelectionDivider>
+                        <Category selected={selectedCategory === 'face'} onClick={()=>{handleSelect('face')}}>얼굴</Category>
+                        <SelectionDivider src="/image/Separator.png"></SelectionDivider>
+                        <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleSelect('clothes')}}>옷</Category>
+                        <SelectionDivider src="/image/Separator.png"></SelectionDivider>
+                        <Category selected={selectedCategory === 'accessary'} onClick={()=>{handleSelect('accessary')}}>악세사리</Category>
+                    </Selection>
+                </SelectionContainer>
+                <CustomElements>
+                    <CustomElement></CustomElement>
+                    <CustomElement />
+                    <CustomElement />
+                    <CustomElement />
+                    <CustomElement />
+                    <CustomElement />
+                    <CustomElement />
+                </CustomElements>
             </CustomElementContainer>
         </Container>
     </>
@@ -83,7 +94,7 @@ const CompleteButton = styled.div`
     border: solid 1px #FDA4AF;
 `
 const CustomElementContainer = styled.div`
-    width: 90%;
+    width: 80%;
     border-top: 1.5px solid #D4D4D4;
     border-right: 1.5px solid #D4D4D4;
     border-bottom: 0px; /* 아래쪽 테두리 없음 */
@@ -93,16 +104,24 @@ const CustomElementContainer = styled.div`
     position: absolute;
     bottom: 0;
     border-radius: 16px 16px 0px 0px;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-right: 3%;
+    padding-left: 3%;
 `
+const SelectionContainer = styled.div`
+    width: 100%;
+    height: 18vh;
+    display: flex;
+    justify-content: center;
+`
+
 const Selection = styled.div`
     background-color: #EEEEEF;
     border-radius: 10px;
-    width: 95%;
-    height: 15%;
+    width: 100%;
+    height: 5vh;
     margin-top: 2%;
     display: flex;
     justify-content: center;
@@ -132,4 +151,22 @@ const Category = styled.div`
     width: 85%;
     align-self: center;
     justify-self: center;
+`
+const CustomElements = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 5%;
+    column-gap: 2%;
+    padding: 5%;
+    width: 100%;
+    overflow-y: auto;
+    padding: 3%;
+`;
+
+
+const CustomElement = styled.div`
+    background-color: #EEEEEF;
+    border-radius: 16px;
+    width: 100%; /* 원하는 크기로 설정 */
+    height: 20vh; /* 원하는 크기로 설정 */
 `
