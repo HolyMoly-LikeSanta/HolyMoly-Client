@@ -1,34 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { MyPage } from "../modal/MyPage";
 
 const TopNavBack = () => {
   const navigate = useNavigate();
+  const [isMyPageOpen, setIsMyPageOpen] = useState(false);
+
+  const handleMyPage = () => {
+    setIsMyPageOpen(!isMyPageOpen);
+  }
 
   return (
-    <Container>
-      <div>
-        <BackIcon
-          src="/image/BackIcon.png"
+    <>
+      <Container>
+          {isMyPageOpen && (
+            <ModalOverlay>
+              <MyPage setIsMyPageOpen={setIsMyPageOpen}/>
+            </ModalOverlay>
+        )}
+        <div>
+          <BackIcon
+            src="/image/BackIcon.png"
+            alt="ArrowBack"
+            onClick={() => {
+              navigate(-1);
+            }}
+          />
+        </div>
+        <AppTitle>
+          <img src="/image/TopTitle.png"></img>
+        </AppTitle>
+        <UserIcon
+          src="/image/UserIcon.png"
           alt="ArrowBack"
           onClick={() => {
-            navigate(-1);
+            handleMyPage();
           }}
         />
-      </div>
-      <AppTitle
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        <img src="/image/TopTitle.png"></img>
-      </AppTitle>
-      <UserIcon src="/image/UserIcon.png" alt="ArrowBack" />
-    </Container>
+      </Container>
+    </>
   );
 };
 
 export default TopNavBack;
+
+const ModalOverlay = styled.div`
+  top: 70px;
+  left: 42%;
+  display: flex;
+  align-self: flex-end;
+  justify-self: end;
+  z-index: 1111;
+  position: absolute;
+`
 
 const Container = styled.div`
   position: fixed;
@@ -48,7 +73,7 @@ const Container = styled.div`
     ); // 작은 화면에서는 화면 비율에 맞게 높이 설정 전체 높이의 &%
   }
 
-  z-index: 100;
+  z-index: 1;
 `;
 const BackIcon = styled.img`
   width: 1rem;
