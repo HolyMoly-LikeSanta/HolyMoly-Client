@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const TopNavBack = () => {
+const TopNav = () => {
   const navigate = useNavigate();
 
   return (
@@ -28,7 +28,7 @@ const TopNavBack = () => {
   );
 };
 
-export default TopNavBack;
+export default TopNav;
 
 const Container = styled.div`
   position: fixed;
