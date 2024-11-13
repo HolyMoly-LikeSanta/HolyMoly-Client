@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TopNavBack from "../../components/TopNavBack";
 import styled from "styled-components";
+import Modal from "../../components/Modal";
 
 const MAX_NICKNAME_LENGTH = 10;
 const MAX_LETTER_LENGTH = 500; // Adjust this to your desired max length
@@ -87,28 +88,15 @@ const Letterwrite = () => {
         </Border>
       </FlexBox>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <ModalOverlay onClick={closeModal}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <p>
-              "편지가 저장되면 수정할 수 없어!<br></br>그래도 저장할래?"
-            </p>
-            <ButtonGroup>
-              <ModalButtonYes
-                onClick={() => {
-                  // Add save logic here, if needed
-                  closeModal();
-                  saveData();
-                }}
-              >
-                네!
-              </ModalButtonYes>{" "}
-              <ModalButtonNo onClick={closeModal}>아니요</ModalButtonNo>
-            </ButtonGroup>
-          </ModalContent>
-        </ModalOverlay>
-      )}
+      {/* Modal Component */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={() => {
+          saveData();
+          closeModal();
+        }}
+      />
     </Container>
   );
 };
@@ -275,7 +263,7 @@ const ButtonGroup = styled.div`
   margin-top: 1.5rem;
 `;
 
-const ModalButtonYes = styled.button`
+const ModalButtonYes = styled.div`
   padding: 0.5rem 1rem;
   background: linear-gradient(
     138.66deg,
@@ -297,7 +285,7 @@ const ModalButtonYes = styled.button`
   width: 30%;
 `;
 
-const ModalButtonNo = styled.button`
+const ModalButtonNo = styled.div`
   padding: 0.5rem 1rem;
   background: linear-gradient(
     164.98deg,
