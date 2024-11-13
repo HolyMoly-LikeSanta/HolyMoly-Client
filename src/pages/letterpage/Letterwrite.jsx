@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TopNavBack from "../../components/TopNavBack";
 import styled from "styled-components";
+import Modal from "../../components/Modal";
 
 const MAX_NICKNAME_LENGTH = 10;
 const MAX_LETTER_LENGTH = 500; // Adjust this to your desired max length
@@ -87,28 +88,15 @@ const Letterwrite = () => {
         </Border>
       </FlexBox>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <ModalOverlay onClick={closeModal}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <p>
-              "편지가 저장되면 수정할 수 없어!<br></br>그래도 저장할래?"
-            </p>
-            <ButtonGroup>
-              <ModalButtonYes
-                onClick={() => {
-                  // Add save logic here, if needed
-                  closeModal();
-                  saveData();
-                }}
-              >
-                네!
-              </ModalButtonYes>{" "}
-              <ModalButtonNo onClick={closeModal}>아니요</ModalButtonNo>
-            </ButtonGroup>
-          </ModalContent>
-        </ModalOverlay>
-      )}
+      {/* Modal Component */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={() => {
+          saveData();
+          closeModal();
+        }}
+      />
     </Container>
   );
 };
@@ -126,6 +114,10 @@ const FlexBox = styled.div`
   max-height: calc(
     100vh - 70px
   ); /* 화면 높이에서 TopNavBack과 패딩을 뺀 최대 높이 */
+
+  position: absolute;
+  top: 70px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,8 +125,6 @@ const FlexBox = styled.div`
 
 const Border = styled.div`
   width: 80%;
-  top: 70px;
-  position: relative;
   max-height: calc(
     100vh - 70px
   ); /* 화면 높이에서 TopNavBack과 패딩을 뺀 최대 높이 */
@@ -146,11 +136,13 @@ const Border = styled.div`
   border-radius: 1rem;
 
   @media screen and (max-width: 600px) {
-    width: 90%;
+    width: 80%;
+    height: 70vh;
   }
 `;
 
 const InnerBox = styled.div`
+  position: relative;
   background-color: white;
   padding: 2rem 2rem;
   border-radius: 1rem;
@@ -159,10 +151,11 @@ const InnerBox = styled.div`
 `;
 
 const CloseIcon = styled.img`
+  cursor: pointer;
   position: absolute;
   width: 1.5rem;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 1rem;
 `;
 
 const FromBox = styled.div`
@@ -270,7 +263,7 @@ const ButtonGroup = styled.div`
   margin-top: 1.5rem;
 `;
 
-const ModalButtonYes = styled.button`
+const ModalButtonYes = styled.div`
   padding: 0.5rem 1rem;
   background: linear-gradient(
     138.66deg,
@@ -280,11 +273,10 @@ const ModalButtonYes = styled.button`
 
   backdrop-filter: blur(10px);
 
-  box-shadow: -2px 2px 4px 0px #ffffff inset;
-
-  box-shadow: -4px -4px 6px 0px #fecdd3 inset;
-
-  box-shadow: -0.4px -0.4px 2px 0px #fda4af inset;
+  box-shadow:
+    -2px 2px 4px 0px #ffffff inset,
+    -4px -4px 6px 0px #fecdd3 inset,
+    -0.4px -0.4px 2px 0px #fda4af inset;
 
   color: #dc2626;
   border: none;
@@ -293,7 +285,7 @@ const ModalButtonYes = styled.button`
   width: 30%;
 `;
 
-const ModalButtonNo = styled.button`
+const ModalButtonNo = styled.div`
   padding: 0.5rem 1rem;
   background: linear-gradient(
     164.98deg,
@@ -303,11 +295,10 @@ const ModalButtonNo = styled.button`
 
   backdrop-filter: blur(10px);
 
-  box-shadow: -2px 2px 4px 0px #ffffff inset;
-
-  box-shadow: -2px -4px 8px 0px #f0fdf4 inset;
-
-  box-shadow: -0.4px -0.4px 2px 0px #a7f3d0 inset;
+  box-shadow:
+    -2px 2px 4px 0px #ffffff inset,
+    -2px -4px 8px 0px #f0fdf4 inset,
+    -0.4px -0.4px 2px 0px #a7f3d0 inset;
 
   color: #14532d;
   border: none;

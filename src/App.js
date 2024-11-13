@@ -9,6 +9,7 @@ import Invite from "./pages/invitepage/Invite";
 import InviteForm from "./pages/invitepage/InviteForm";
 import Letterwrite from "./pages/letterpage/Letterwrite";
 import { Custom } from "./pages/custompage/Custom";
+import Stage from "./pages/stagepage/Stage";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path="custom" element={<Custom />} />
         <Route path="invite" element={<Invite />} />
         <Route path="inviteform" element={<InviteForm />} />
+        <Route path="/stage/*" element={<Stage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/letter" element={<Letter />} />
         <Route path="/letterwrite" element={<Letterwrite />} />
       </Routes>
