@@ -8,6 +8,7 @@ import Letter from "./pages/letterpage/Letter";
 import Invite from "./pages/invitepage/Invite";
 import InviteForm from "./pages/invitepage/InviteForm";
 import Letterwrite from "./pages/letterpage/Letterwrite";
+import { Custom } from "./pages/custompage/Custom";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="login" element={<Login />} />
+        <Route path="custom" element={<Custom />} />
         <Route path="invite" element={<Invite />} />
         <Route path="inviteform" element={<InviteForm />} />
         <Route path="/letter" element={<Letter />} />
