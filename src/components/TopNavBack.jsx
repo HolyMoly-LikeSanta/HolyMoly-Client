@@ -28,7 +28,7 @@ const TopNavBack = () => {
             }}
           />
         </div>
-        <AppTitle>
+        <AppTitle onClick={()=>navigate('/')}>
           <img src="/image/TopTitle.png"></img>
         </AppTitle>
         <UserIcon
