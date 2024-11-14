@@ -15,8 +15,10 @@ const TopNavBack = () => {
     <>
       <Container>
           {isMyPageOpen && (
-            <ModalOverlay>
-              <MyPage setIsMyPageOpen={setIsMyPageOpen}/>
+            <ModalOverlay onClick={()=>setIsMyPageOpen(false)}>
+              <ModalContent onClick={(e)=> e.stopPropagation()}>
+                <MyPage setIsMyPageOpen={setIsMyPageOpen}/>
+              </ModalContent>
             </ModalOverlay>
         )}
         <div>
@@ -28,7 +30,7 @@ const TopNavBack = () => {
             }}
           />
         </div>
-        <AppTitle>
+        <AppTitle onClick={()=>navigate('/')}>
           <img src="/image/TopTitle.png"></img>
         </AppTitle>
         <UserIcon
@@ -46,6 +48,18 @@ const TopNavBack = () => {
 export default TopNavBack;
 
 const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(255 255 255 / 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+`
+const ModalContent = styled.div`
   top: 70px;
   left: 42%;
   display: flex;

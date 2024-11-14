@@ -1,22 +1,37 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
+import Modal from '../../components/Modal';
 
 export const Custom = () => {
     const [selectedCategory, setSelectedCategory] = useState('background');
+    const [completeModal, setCompleteModal] = useState(false);
 
     const handleSelect = (selected) => {
         setSelectedCategory(selected);
     }
 
+    const handleComplete = () => {
+        setCompleteModal(true);
+    }
+
+    const handleSave = () => {
+
+    }
 
   return (
     <>
+        {completeModal && 
+        <Modal 
+        isOpen={completeModal}
+        onClose={()=>setCompleteModal(false)} 
+        text={"“파티 준비를 다 하셨나요?”"} 
+        onConfirm={()=>handleSave()}/>}
         <TopNavBack />
         <Container>
             <MainContainer>
                 <CharacterBackground></CharacterBackground>
-                <CompleteButton>완료</CompleteButton>
+                <CompleteButton onClick={handleComplete}>완료</CompleteButton>
             </MainContainer>
             <CustomElementContainer>
                 <SelectionContainer>
@@ -33,12 +48,6 @@ export const Custom = () => {
                     </Selection>
                 </SelectionContainer>
                 <CustomElements>
-                    <CustomElement></CustomElement>
-                    <CustomElement />
-                    <CustomElement />
-                    <CustomElement />
-                    <CustomElement />
-                    <CustomElement />
                     <CustomElement />
                 </CustomElements>
             </CustomElementContainer>
@@ -75,7 +84,7 @@ const CharacterBackground = styled.div`
     border: solid 1.5px #46464622 ;
 `
 const CompleteButton = styled.div`
-    font-size: 15px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,7 +121,7 @@ const CustomElementContainer = styled.div`
 `
 const SelectionContainer = styled.div`
     width: 100%;
-    height: 18vh;
+    height: 7vh;
     display: flex;
     justify-content: center;
 `
@@ -138,7 +147,7 @@ const SelectionDivider = styled.img`
 `
 
 const Category = styled.div`
-    font-size: 17px;
+    font-size: 13px;
     font-weight: 400;
     white-space: nowrap;
     cursor: pointer;
@@ -151,22 +160,28 @@ const Category = styled.div`
     width: 85%;
     align-self: center;
     justify-self: center;
+    padding-top: 8%;
+    padding-bottom: 8%;
 `
 const CustomElements = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 5%;
     column-gap: 2%;
-    padding: 5%;
     width: 100%;
     overflow-y: auto;
-    padding: 3%;
+    //padding: 3%;
 `;
 
-
-const CustomElement = styled.div`
+const CustomBackgroundElement = styled.div`
     background-color: #EEEEEF;
     border-radius: 16px;
     width: 100%; /* 원하는 크기로 설정 */
     height: 20vh; /* 원하는 크기로 설정 */
+`
+const CustomElement = styled.div`
+    background-color: #EEEEEF;
+    border-radius: 16px;
+    width: 100%; /* 원하는 크기로 설정 */
+    height: 13vh; /* 원하는 크기로 설정 */
 `

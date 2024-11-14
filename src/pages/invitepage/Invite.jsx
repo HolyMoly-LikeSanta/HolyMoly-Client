@@ -20,7 +20,11 @@ const Invite = () => {
         <BtnFlexBox>
           {/* 첫 번째 버튼 */}
           <div>
-            <img src="/image/InviteBtn1.png" alt="Button 1" />
+            <img src="/image/InviteBtn1.png" alt="Button 1" 
+              onClick={()=>{
+                navigate("/custom");
+              }}
+            />
           </div>
 
           {/* 두 번째 버튼 클릭 시 FlowBtn이 나타나도록 */}
