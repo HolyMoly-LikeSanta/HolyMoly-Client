@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const MyPage = () => {
   return (
-    <ModalContent>
+    <ModalContent onClick={(e) => e.stopPropagation()}>
         <ProfileHeader>
             <ProfileImgContainer>
                 <ProfileImg></ProfileImg>
