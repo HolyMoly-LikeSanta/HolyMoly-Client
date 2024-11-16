@@ -23,7 +23,14 @@ const ButtonContainer = styled.div`
   align-items: center;
   cursor: pointer;
   gap: 18px;
+  z-index: 1; /* 배경 위에 표시되도록 */
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: -2px 2px 4px 0px #FFFFFF inset,
+              -4px -4px 6px 0px #D1D5DB inset,
+              -0.4px -0.4px 2px 0px #00000066 inset;
 `
+
 const ButtonIcon = styled.img`
   width: 32px;
   height: 32px;
