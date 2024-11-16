@@ -16,10 +16,14 @@ export const Login = () => {
           </MainText>
         </MainContainer>
         <MainImage />
-        <MainButton
-          imgSrc={'/image/Kakaotalk.png'}
-          text={'카카오톡 계정으로 로그인하기'}
-        />
+        <ButtonContainer>
+          <BtnDeco id='up' src='/image/loginBtnDecoUp.png'></BtnDeco>
+          <MainButton
+            imgSrc={'/image/Kakaotalk.png'}
+            text={'카카오톡 계정으로 로그인하기'}
+          />
+          <BtnDeco id='down' src='/image/loginBtnDecoDown.png'></BtnDeco>
+        </ButtonContainer>
       </MainContent>
     </Container>
   );
@@ -80,3 +84,22 @@ const MainImage = styled.div`
   object-fit: cover;
   margin-bottom: 8px;
 `;
+
+const ButtonContainer = styled.div`
+  position: relative;
+`
+
+const BtnDeco = styled.img`
+  position: absolute;
+  z-index: 99;
+
+  &[id='up']{
+    width: 130px;
+    top: -62px;
+    left: 220px;
+  }
+  &[id='down']{
+    width: 60px;
+    left: 258px;
+  }
+`
