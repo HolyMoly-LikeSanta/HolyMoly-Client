@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
+import { fetchCustomItems } from '../../apis/custom';
 
 export const Custom = () => {
     const [selectedCategory, setSelectedCategory] = useState('background');
     const [completeModal, setCompleteModal] = useState(false);
+    const [customItems, setCustomItems] = useState({});
 
     const handleSelect = (selected) => {
         setSelectedCategory(selected);
@@ -18,6 +20,14 @@ export const Custom = () => {
     const handleSave = () => {
 
     }
+
+    useEffect(()=>{
+        const getCustomItems = async() => {
+            const result = await fetchCustomItems();
+            setCustomItems(result);
+        }  
+        getCustomItems();
+    },[]);
 
   return (
     <>
@@ -44,7 +54,7 @@ export const Custom = () => {
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
                         <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleSelect('clothes')}}>옷</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'accessary'} onClick={()=>{handleSelect('accessary')}}>악세사리</Category>
+                        <Category selected={selectedCategory === 'accessory'} onClick={()=>{handleSelect('accessry')}}>악세사리</Category>
                     </Selection>
                 </SelectionContainer>
                 <CustomElements>
