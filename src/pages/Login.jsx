@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { MainButton } from '../components/MainButton';
+import { kakaoLogin } from '../auth/kakaoAuth';
 
 export const Login = () => {
-  const link = `http://localhost:3000/invite`
+  const kakaoLoginLink = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+
+  useEffect(()=>{
+    console.log(process.env.REACT_APP_KAKAO_REDIRECT_URI);
+    console.log(process.env.REACT_APP_KAKAO_REST_API_KEY);
+  },[])
+
+  const handleKakaoLogin = (e) => {
+    e.preventDefault();
+    window.location.href = kakaoLoginLink;
+  }
 
   return (
     <Container>
@@ -19,6 +30,7 @@ export const Login = () => {
         <ButtonContainer>
           <BtnDeco id='up' src='/image/loginBtnDecoUp.png'></BtnDeco>
           <MainButton
+            handleClick={(e)=>handleKakaoLogin(e)}
             imgSrc={'/image/Kakaotalk.png'}
             text={'카카오톡 계정으로 로그인하기'}
           />

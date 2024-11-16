@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopNavBack from "../../components/TopNavBack";
 import styled, { keyframes, css } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { kakaoLogin } from "../../auth/kakaoAuth";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
@@ -12,6 +13,10 @@ const Invite = () => {
   const handleSecondButtonClick = () => {
     setIsFlowBtnVisible(!isFlowBtnVisible);
   };
+
+  useEffect(()=>{
+    kakaoLogin();
+  },[])
 
   return (
     <Container>

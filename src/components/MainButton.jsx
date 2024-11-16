@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const MainButton = ({imgSrc, text}) => {
+export const MainButton = ({imgSrc, text, handleClick}) => {
   return (
     <>
-      <ButtonContainer>
+      <ButtonContainer onClick={handleClick}>
         <ButtonIcon src={imgSrc}></ButtonIcon>
         <ButtonText>{text}</ButtonText>
       </ButtonContainer>
