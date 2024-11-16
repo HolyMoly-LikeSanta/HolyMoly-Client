@@ -67,8 +67,8 @@ const Board = () => {
     slidesToScroll: 3, // 한 번에 1개씩 넘기기
     arrows: true, // 좌우 화살표 표시
     rows: 2,
-    prevArrow: <CustomPrevArrow />, // 커스텀 이전 화살표
-    nextArrow: <CustomNextArrow />, // 커스텀 다음 화살표
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
   };
 
   const navigate = useNavigate();

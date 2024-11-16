@@ -116,7 +116,7 @@ const InviteForm = () => {
                 )}
                 <CharacterCount>
                   {nickname.length}/{MAX_NICKNAME_LENGTH}
-                </CharacterCount>{" "}
+                </CharacterCount>
               </MessageBox>
               <MissonBox>{mission}</MissonBox>
             </LetterBox>
