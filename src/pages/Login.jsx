@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { MainButton } from '../components/MainButton';
 
 export const Login = () => {
+  const link = `http://localhost:3000/invite`
+
   return (
     <Container>
       <BackgroundLayer />
