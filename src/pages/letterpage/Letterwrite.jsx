@@ -14,10 +14,18 @@ const Letterwrite = () => {
   const [letter, setLetter] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
+  const [showErrorName, setShowErrorName] = useState(true); // 에러 메시지 표시 여부
+  const [showErrorContent, setShowErrorContent] = useState(true); // 에러 메시지 표시 여부
+
   const handleNicknameChange = (e) => {
     const newNickname = e.target.value;
     if (newNickname.length <= MAX_NICKNAME_LENGTH) {
       setNickname(newNickname);
+    }
+    if (newNickname.length > 0) {
+      setShowErrorName(false); // 입력값이 있으면 에러 숨김
+    } else {
+      setShowErrorName(true);
     }
   };
 
@@ -25,6 +33,11 @@ const Letterwrite = () => {
     const newLetter = e.target.value;
     if (newLetter.length <= MAX_LETTER_LENGTH) {
       setLetter(newLetter);
+    }
+    if (newLetter.length > 0) {
+      setShowErrorContent(false); // 입력값이 있으면 에러 숨김
+    } else {
+      setShowErrorContent(true);
     }
   };
 
@@ -40,6 +53,12 @@ const Letterwrite = () => {
     // 데이터 저장하는 것
   };
 
+  // 이미지 파일 경로를 변수로 선언
+  const saveBtnImage =
+    showErrorName || showErrorContent
+      ? "/image/SaveBtnUnable.png"
+      : "/image/SaveBtn.png"; // 에러가 있으면 SaveBtnUnable로 설정
+
   return (
     <Container>
       <TopNavBack></TopNavBack>
@@ -54,7 +73,8 @@ const Letterwrite = () => {
               }}
             />
             <FromBox>
-              <img src="/image/FROM..png" alt="FromImg" />
+              {/* <img src="/image/FROM..png" alt="FromImg" /> */}
+              <span>FROM.</span>
               <form>
                 <InputBox>
                   <input
@@ -65,9 +85,19 @@ const Letterwrite = () => {
                     required
                   />
                 </InputBox>
-                <CharacterCount>
-                  {nickname.length}/{MAX_NICKNAME_LENGTH}
-                </CharacterCount>
+                <MessageBox>
+                  {showErrorName ? (
+                    <ErrorBox>
+                      <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
+                      <ErrorMessage>&nbsp;닉네임을 입력해주세요</ErrorMessage>
+                    </ErrorBox>
+                  ) : (
+                    <ErrorMessage></ErrorMessage>
+                  )}
+                  <CharacterCount>
+                    {nickname.length}/{MAX_NICKNAME_LENGTH}
+                  </CharacterCount>
+                </MessageBox>
                 <LetterBox>
                   <textarea
                     value={letter}
@@ -75,14 +105,30 @@ const Letterwrite = () => {
                     placeholder="편지를 써주세요"
                     required
                   />
+                </LetterBox>
+                <MessageBox>
+                  {showErrorContent ? (
+                    <ErrorBox>
+                      <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
+                      <ErrorMessage>&nbsp;편지내용을 입력해주세요</ErrorMessage>
+                    </ErrorBox>
+                  ) : (
+                    <ErrorMessage></ErrorMessage>
+                  )}
                   <CharacterCount>
                     {letter.length}/{MAX_LETTER_LENGTH}
                   </CharacterCount>
-                </LetterBox>
-                <SaveButton type="button" onClick={openModal}>
-                  발송
-                </SaveButton>
+                </MessageBox>
               </form>
+              <SaveButton>
+                <ClickBtn
+                  onClick={
+                    showErrorName || showErrorContent ? undefined : openModal
+                  } // 에러가 있으면 클릭 비활성화
+                >
+                  <img src={saveBtnImage} alt="" />
+                </ClickBtn>
+              </SaveButton>
             </FromBox>
           </InnerBox>
         </Border>
@@ -104,6 +150,10 @@ const Letterwrite = () => {
 export default Letterwrite;
 
 const Container = styled.div`
+  background-image: url("/image/InviteBackgroundImg.png");
+  background-size: cover; /* 배경 이미지 크기 자동 조정 */
+  background-position: center; /* 배경 이미지 중앙 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
   background-color: white;
   height: 100%;
 `;
@@ -131,8 +181,11 @@ const Border = styled.div`
   height: 80vh;
   box-sizing: border-box;
   padding: 1rem;
+  box-shadow:
+    -4px -4px 6px 0px #00000040 inset,
+    0px 4px 4px 0px #00000040 inset;
 
-  background-color: #14532d;
+  background-color: #eab5b5;
   border-radius: 1rem;
 
   @media screen and (max-width: 600px) {
@@ -148,6 +201,13 @@ const InnerBox = styled.div`
   border-radius: 1rem;
   height: 100%;
   box-sizing: border-box;
+  box-shadow:
+    -4px -4px 8px 0px #00000073 inset,
+    0px 4px 4px 0px #00000040 inset;
+
+  @media screen and (max-width: 600px) {
+    padding: 2rem 1.5rem;
+  }
 `;
 
 const CloseIcon = styled.img`
@@ -159,12 +219,13 @@ const CloseIcon = styled.img`
 `;
 
 const FromBox = styled.div`
+  display: flex;
   height: 100%;
   box-sizing: border-box;
-  img {
-    width: 25%;
-    object-fit: contain;
-    margin-bottom: 0.5rem;
+  flex-direction: column;
+
+  span {
+    font-size: 1.2rem;
   }
 
   form {
@@ -175,16 +236,22 @@ const FromBox = styled.div`
     margin-left: 1rem;
   }
 
+  input {
+    font-family: "UhBee_SeHyun_Regular";
+  }
+
   textarea {
     padding: 0.5rem;
     border: 2px solid #a1a1aa;
     border-radius: 0.5rem;
     box-sizing: border-box;
+    font-family: "UhBee_SeHyun_Regular";
   }
 `;
 
 const InputBox = styled.div`
   width: 100%;
+  margin-top: 1rem;
   input {
     width: 100%;
     padding: 0.5rem;
@@ -200,9 +267,26 @@ const LetterBox = styled.div`
   textarea {
     width: 100%;
     height: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     resize: none;
     box-sizing: border-box;
+
+    /* 스크롤바 스타일 */
+    &::-webkit-scrollbar {
+      width: 4px; /* 스크롤바 두께를 줄여 깔끔하게 */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #eab5b5; /* 테두리와 조화를 이루는 색상 */
+      border-radius: 4px;
+      border: 1px solid #eab5b5; /* 스크롤바에 테두리 추가 */
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #b86b6b; /* 호버 시 강조 */
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
   }
 
   @media screen and (max-width: 600px) {
@@ -211,98 +295,48 @@ const LetterBox = styled.div`
 `;
 
 const CharacterCount = styled.div`
-  text-align: right;
   font-size: 0.9rem;
   color: gray;
 `;
 
-const SaveButton = styled.button`
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #14532d;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-weight: bold;
-`;
-
-// Modal Styles
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 70px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgb(255 255 255 / 50%);
+const MessageBox = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  justify-content: space-between;
+  flex-shrink: 0;
+
+  span {
+    font-size: 10px;
+  }
 `;
 
-const ModalContent = styled.div`
-  background: linear-gradient(23.22deg, #f1f5f9 -30.82%, #f8fafc 84.08%);
-  padding: 2rem;
-  margin: 0 2rem;
-  border-radius: 1rem;
-  max-width: 400px;
-  text-align: center;
-  position: relative;
-  width: 35%;
-  box-shadow: 0px 8px 10px 0px #71717a66;
+const ErrorBox = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 1rem;
+  }
+`;
 
-  @media screen and (max-width: 600px) {
+const ErrorMessage = styled.span`
+  color: #d00b0e;
+  flex-shrink: 0;
+`;
+
+const SaveButton = styled.div`
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  img {
+    cursor: pointer;
+    text-align: end;
     width: 100%;
   }
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 1.5rem;
-`;
-
-const ModalButtonYes = styled.div`
-  padding: 0.5rem 1rem;
-  background: linear-gradient(
-    138.66deg,
-    rgba(255, 255, 255, 0.85) 23.4%,
-    rgba(220, 38, 38, 0.85) 133.9%
-  );
-
-  backdrop-filter: blur(10px);
-
-  box-shadow:
-    -2px 2px 4px 0px #ffffff inset,
-    -4px -4px 6px 0px #fecdd3 inset,
-    -0.4px -0.4px 2px 0px #fda4af inset;
-
-  color: #dc2626;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 30%;
-`;
-
-const ModalButtonNo = styled.div`
-  padding: 0.5rem 1rem;
-  background: linear-gradient(
-    164.98deg,
-    rgba(255, 255, 255, 0.85) -10.59%,
-    rgba(20, 83, 45, 0.85) 342.91%
-  );
-
-  backdrop-filter: blur(10px);
-
-  box-shadow:
-    -2px 2px 4px 0px #ffffff inset,
-    -2px -4px 8px 0px #f0fdf4 inset,
-    -0.4px -0.4px 2px 0px #a7f3d0 inset;
-
-  color: #14532d;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
+const ClickBtn = styled.div`
   width: 30%;
 `;

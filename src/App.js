@@ -16,11 +16,11 @@ function App() {
     <AppDom>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/stage/:nickname" element={<Stage />} />
         <Route path="login" element={<Login />} />
         <Route path="custom" element={<Custom />} />
         <Route path="invite" element={<Invite />} />
         <Route path="inviteform" element={<InviteForm />} />
-        <Route path="/stage/*" element={<Stage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/letter" element={<Letter />} />
         <Route path="/letterwrite" element={<Letterwrite />} />

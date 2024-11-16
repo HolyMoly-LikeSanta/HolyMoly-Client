@@ -22,9 +22,12 @@ const Modal = ({ isOpen, onClose, onConfirm, text }) => {
               onClose();
             }}
           >
-            네!
+            {" "}
+            <img src="/image/YesBtn.png" />
           </ModalButtonYes>
-          <ModalButtonNo onClick={onClose}>아니요</ModalButtonNo>
+          <ModalButtonNo onClick={onClose}>
+            <img src="/image/NoBtn.png" />
+          </ModalButtonNo>
         </ButtonGroup>
       </ModalContent>
     </ModalOverlay>
@@ -40,7 +43,7 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(255 255 255 / 50%);
+  background-color: rgb(255 255 255 / 90%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,45 +73,15 @@ const ButtonGroup = styled.div`
 `;
 
 const ModalButtonYes = styled.div`
-  padding: 0.5rem 1rem;
-  background: linear-gradient(
-    138.66deg,
-    rgba(255, 255, 255, 0.85) 23.4%,
-    rgba(220, 38, 38, 0.85) 133.9%
-  );
-
-  backdrop-filter: blur(10px);
-
-  box-shadow:
-    -2px 2px 4px 0px #ffffff inset,
-    -4px -4px 6px 0px #fecdd3 inset,
-    -0.4px -0.4px 2px 0px #fda4af inset;
-
-  color: #dc2626;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 30%;
+  width: 40%;
+  img {
+    width: 100%;
+  }
 `;
 
 const ModalButtonNo = styled.div`
-  padding: 0.5rem 1rem;
-  background: linear-gradient(
-    164.98deg,
-    rgba(255, 255, 255, 0.85) -10.59%,
-    rgba(20, 83, 45, 0.85) 342.91%
-  );
-
-  backdrop-filter: blur(10px);
-
-  box-shadow:
-    -2px 2px 4px 0px #ffffff inset,
-    -2px -4px 8px 0px #f0fdf4 inset,
-    -0.4px -0.4px 2px 0px #a7f3d0 inset;
-
-  color: #14532d;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 30%;
+  width: 40%;
+  img {
+    width: 100%;
+  }
 `;
