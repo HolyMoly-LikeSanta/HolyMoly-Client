@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-const Modal = ({ isOpen, onClose, onConfirm }) => {
+const Modal = ({ isOpen, onClose, onConfirm, text }) => {
   if (!isOpen) return null;
 
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <p>
+        {text
+          ||
+          <p>
           "편지가 저장되면 수정할 수 없어!
           <br />
           그래도 저장할래?"
         </p>
+        }
         <ButtonGroup>
           <ModalButtonYes
             onClick={() => {
