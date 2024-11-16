@@ -18,6 +18,7 @@ export default Home;
 const Container = styled.div`
   background-color: white;
   height: 100%;
+  background-image:;
 `;
 
 const UserImg = styled.img`

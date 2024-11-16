@@ -22,8 +22,9 @@ const Letter = () => {
               }}
             />
             <FromBox>
-              <img src="/image/FROM..png" alt="FromImg" />
-              <h2>{data.author}</h2>
+              {/* <img src="/image/FROM..png" alt="FromImg" /> */}
+              <span>FROM.&nbsp;&nbsp;{data.author}</span>
+              <p>{data.content}</p>
             </FromBox>
           </InnerBox>
         </Border>
@@ -35,6 +36,10 @@ const Letter = () => {
 export default Letter;
 
 const Container = styled.div`
+  background-image: url("/image/InviteBackgroundImg.png");
+  background-size: cover; /* 배경 이미지 크기 자동 조정 */
+  background-position: center; /* 배경 이미지 중앙 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
   background-color: white;
   height: 100%;
 `;
@@ -60,8 +65,11 @@ const Border = styled.div`
   height: 80vh;
   box-sizing: border-box;
   padding: 1rem;
+  box-shadow:
+    -4px -4px 6px 0px #00000040 inset,
+    0px 4px 4px 0px #00000040 inset;
 
-  background-color: #14532d;
+  background-color: #eab5b5;
   border-radius: 1rem;
 
   @media screen and (max-width: 600px) {
@@ -75,6 +83,9 @@ const InnerBox = styled.div`
   border-radius: 1rem;
   height: 100%;
   box-sizing: border-box;
+  box-shadow:
+    -4px -4px 8px 0px #00000073 inset,
+    0px 4px 4px 0px #00000040 inset;
 `;
 
 const CloseIcon = styled.img`
@@ -86,8 +97,36 @@ const CloseIcon = styled.img`
 
 const FromBox = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: hidden; /* FromBox 내부로 스크롤을 제한 */
+  height: 100%; /* FromBox가 부모 요소에 맞게 확장되도록 설정 */
+  span {
+    font-size: 1.2rem;
+  }
 
+  p {
+    margin-top: 2rem;
+    line-height: 3rem;
+    overflow-y: auto;
+    padding-right: 0.5rem; /* 스크롤바와 내용 간 여백 */
+
+    /* 스크롤바 스타일링 */
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #eab5b5;
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #d19494;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
+  }
   img {
     width: 25%;
     object-fit: contain;

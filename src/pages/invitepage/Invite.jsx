@@ -16,7 +16,11 @@ const Invite = () => {
   return (
     <Container>
       <TopNavBack />
+
       <BtnBox>
+        <SantaBox>
+          <img src="/image/Santa.png" alt="" />
+        </SantaBox>
         <BtnFlexBox>
           {/* 첫 번째 버튼 */}
           <div>
@@ -62,14 +66,32 @@ const slideUp = keyframes`
 `;
 
 const Container = styled.div`
+  background-image: url("/image/BackgroundImg.png");
+  background-size: cover; /* 배경 이미지 크기 자동 조정 */
+  background-position: center; /* 배경 이미지 중앙 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
   background-color: white;
   height: 100%;
   position: relative;
 `;
 
+const SantaBox = styled.div`
+  width: 55%;
+  position: fixed;
+  bottom: 9.5rem;
+
+  img {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 80%;
+  }
+`;
+
 const BtnBox = styled.div`
   position: fixed;
-  bottom: 6rem;
+  bottom: 4rem;
   left: 50%;
   transform: translateX(-50%); /* 가로 중앙 정렬 */
   display: flex;
@@ -104,7 +126,7 @@ const BtnFlexBox = styled.div`
 
 const FlowBtn = styled.div`
   position: absolute; /* FlowBtn을 두 번째 버튼 뒤에 배치 */
-  top: 85%; /* 두 번째 버튼 바로 아래에 위치 */
+  top: 80%; /* 두 번째 버튼 바로 아래에 위치 */
   z-index: -2;
   ${({ isVisible }) =>
     isVisible &&

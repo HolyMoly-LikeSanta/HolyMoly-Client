@@ -15,7 +15,7 @@ function App() {
     <AppDom>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/stage/*" element={<Stage />} />
+        <Route path="/stage/:nickname" element={<Stage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/invite" element={<Invite />} />
         <Route path="/inviteform" element={<InviteForm />} />
