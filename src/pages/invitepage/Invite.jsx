@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TopNavBack from "../../components/TopNavBack";
 import styled, { keyframes, css } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { kakaoLogin } from "../../auth/kakaoAuth";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
+
+  const [showError, setShowError] = useState(true); // 에러 메시지 표시 여부
 
   const navigate = useNavigate();
 
@@ -14,13 +15,10 @@ const Invite = () => {
     setIsFlowBtnVisible(!isFlowBtnVisible);
   };
 
-  useEffect(() => {
-    kakaoLogin();
-  }, []);
-
   return (
     <Container>
       <TopNavBack />
+
       <BtnContainer>
         <SantaBox>
           <img src="/image/Santa.png" alt="" />
@@ -38,9 +36,8 @@ const Invite = () => {
               <ErrorMessage></ErrorMessage>
             )}
           </MessageBox>
-      <BtnBox>
-        <BtnFlexBox>
           {/* 첫 번째 버튼 */}
+
           <BtnBox>
             <img
               src="/image/InviteBtn1.png"
@@ -50,10 +47,11 @@ const Invite = () => {
               }}
             />
           </BtnBox>
+
           {/* 두 번째 버튼 클릭 시 FlowBtn이 나타나도록 */}
-          <div onClick={handleSecondButtonClick}>
+          <BtnBox onClick={handleSecondButtonClick}>
             <img src="/image/InviteBtn2.png" alt="Button 2" />
-          </div>
+          </BtnBox>
 
           {/* FlowBtn은 두 번째 버튼 뒤에서 나타나게 */}
           <FlowBtn isVisible={isFlowBtnVisible}>
@@ -70,7 +68,7 @@ const Invite = () => {
             </InviteBtnBox>
           </FlowBtn>
         </BtnFlexBox>
-      </BtnBox>
+      </BtnContainer>
     </Container>
   );
 };
@@ -89,6 +87,10 @@ const slideUp = keyframes`
 `;
 
 const Container = styled.div`
+  background-image: url("/image/BackgroundImg.png");
+  background-size: cover; /* 배경 이미지 크기 자동 조정 */
+  background-position: center; /* 배경 이미지 중앙 정렬 */
+  background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
   background-color: white;
   height: 100%;
   position: relative;
@@ -96,8 +98,8 @@ const Container = styled.div`
 
 const SantaBox = styled.div`
   width: 55%;
-  // position: fixed;
-  // bottom: 10.5rem;
+  position: fixed;
+  bottom: 10.5rem;
 
   img {
     width: 100%;
@@ -108,11 +110,9 @@ const SantaBox = styled.div`
   }
 `;
 
-const BtnContainer = styled.div``;
-
-const BtnBox = styled.div`
+const BtnContainer = styled.div`
   position: fixed;
-  bottom: 6rem;
+  bottom: 4rem;
   left: 50%;
   transform: translateX(-50%); /* 가로 중앙 정렬 */
   display: flex;
@@ -120,7 +120,7 @@ const BtnBox = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: 80%;
   max-width: 600px;
 `;
 
@@ -129,19 +129,33 @@ const BtnFlexBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  div {
-    margin-bottom: 5px; /* 버튼들 간의 간격 */
-  }
-
+  width: 60%;
   text-align: center;
 
   img {
-    width: 60%;
+    width: 100%;
     cursor: pointer;
-    @media screen and (max-width: 600px) {
-      width: 80%;
-    }
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+`;
+
+const MessageBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  span {
+    font-size: 10px;
+  }
+`;
+
+const ErrorBox = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 1rem;
   }
 `;
 
@@ -150,12 +164,12 @@ const ErrorMessage = styled.span`
 `;
 
 const BtnBox = styled.div`
-  // margin-bottom: 5px; /* 버튼들 간의 간격 */
+  margin-bottom: 5px; /* 버튼들 간의 간격 */
 `;
 
 const FlowBtn = styled.div`
   position: absolute; /* FlowBtn을 두 번째 버튼 뒤에 배치 */
-  top: 95%; /* 두 번째 버튼 바로 아래에 위치 */
+  top: 85%; /* 두 번째 버튼 바로 아래에 위치 */
   width: 60%;
   z-index: -2;
   ${({ isVisible }) =>
@@ -170,21 +184,21 @@ const FlowBtn = styled.div`
       opacity: 0;
       pointer-events: none;
     `}
+
+    @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const InviteBtnBox = styled.div`
   display: flex; /* 가로로 버튼 배치 */
   justify-content: space-evenly; /* 버튼 사이에 균등하게 공간 배치 */
   align-items: center; /* 버튼들을 세로로 가운데 정렬 */
-  width: 60%;
+  width: 100%;
   position: absolute;
   top: 50%; /* FlowBtn 안에서 수직으로 중앙 배치 */
   left: 50%;
   transform: translate(-50%, -50%); /* FlowBtn의 중앙에 배치 */
-
-  @media screen and (max-width: 600px) {
-    width: 80%;
-  }
 
   img {
     width: 40%;
