@@ -7,6 +7,13 @@ import { HEADCOLORS } from '../../constant/colors';
 
 export const Custom = () => {
     const mockItems = {
+        bgItems : [{
+            bgId: 1,
+            imageUrl: '/image/tempCustom/bg1.png'
+        },{
+            bgId: 1, 
+            imageUrl: '/image/tempCustom/bg2.png'
+        }],
         accessoryItems : [{
             accessoryId : 1,
             imageUrl: '/image/tempCustom/acc1.png'
@@ -44,6 +51,7 @@ export const Custom = () => {
     const [customItems, setCustomItems] = useState({});
     const [selectedColor, setSelectedColor] = useState('black');
     const [selectedItem, setSelectedItem] = useState({
+        bg: {bgId: 0, imageUrl: null},
         head: {headId: 0, imageUrl: null},
         face: {faceId: 0, imageUrl: null},
         clothes: {clothesId: 0, imageUrl: null},
@@ -105,7 +113,7 @@ export const Custom = () => {
         <TopNavBack />
         <Container>
             <MainContainer>
-                <CharacterBackground>
+                <CharacterBackground src={selectedItem.bg.imageUrl}>
                     <Character src='/image/defaultCharacter.png'/>
                     {selectedItem.head.imageUrl  && <CustomItem id='head' src={selectedItem.head.imageUrl || null} />}
                     <CustomItem id='face' src={selectedItem.face.imageUrl || '/image/defaultFace.png'} />
@@ -142,31 +150,40 @@ export const Custom = () => {
                 <CustomElements>
                     <CustomElement 
                     onClick={()=>handleRemoveItem()}
-                    id='none' 
-                    src='/image/defaultCustom.png'/>
+                    id='remove'
+                    src='/image/defaultCustom.png'
+                    type={selectedCategory}/>
+                    {selectedCategory === 'bg' &&
+                        mockItems.bgItems.map((item)=>
+                            <CustomElement
+                            key={item.id}
+                            src={item.imageUrl}
+                            onClick={()=>handleCustomSelect(item.bgId, item.imageUrl)}
+                            type='bg'
+                            />)}
                     {selectedCategory === 'head' &&
                         mockItems.headItems.filter((item)=> item.color === selectedColor)
                         .map((item)=>
                             <CustomElement 
-                            id={item.id} 
+                            key={item.headId} 
                             src={item.imageUrl}
                             onClick={()=>handleCustomSelect(item.headId, item.imageUrl)}/>)}
                     {selectedCategory === 'face' &&
                         mockItems.faceItems.map((item)=>
                             <CustomElement 
-                            id={item.id} 
+                            key={item.faceId} 
                             src={item.imageUrl}
                             onClick={()=>handleCustomSelect(item.faceId, item.imageUrl)}/>)}
                     {selectedCategory === 'clothes' &&
                         mockItems.clothesItems.map((item)=>
                             <CustomElement 
-                            id={item.id} 
+                            key={item.clothesId} 
                             src={item.imageUrl}
                             onClick={()=>handleCustomSelect(item.clothesId, item.imageUrl)}/>)}
                     {selectedCategory === 'accessory' &&
                         mockItems.accessoryItems.map((item)=>
                             <CustomElement 
-                            id={item.id} 
+                            key={item.accessoryId} 
                             src={item.imageUrl}
                             onClick={()=>handleCustomSelect(item.accessoryId, item.imageUrl)}/>)}
                 </CustomElements>
@@ -207,6 +224,10 @@ const CharacterBackground = styled.div`
                 -0.4px -0.4px 2px 0px #00000066 inset;
     border-radius: 16px;
     border: solid 1.5px #46464622 ;
+    background-image: ${({ src })=> (src ? `url(${src})` : 'none')};
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
 `
 
 const MiddleContainer = styled.div`
@@ -320,22 +341,18 @@ const CustomElements = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 5%;
-    column-gap: 2%;
+    column-gap: 3%;
     width: 100%;
     overflow-y: auto;
 `;
 
-const CustomBackgroundElement = styled.div`
-    background-color: #EEEEEF;
-    border-radius: 16px;
-    width: 100%; 
-    height: 20vh; 
-`
 const CustomElement = styled.img`
     background-color: #EEEEEF;
     border-radius: 16px;
     width: 100%; 
     cursor: pointer;
+    object-fit: cover;
+    height: ${({type})=> type === 'bg' ? '15vh' : 'none'};
 `
 
 const Character = styled.img`
