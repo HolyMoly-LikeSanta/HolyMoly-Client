@@ -24,14 +24,15 @@ const Invite = () => {
       <BtnBox>
         <BtnFlexBox>
           {/* 첫 번째 버튼 */}
-          <div>
-            <img src="/image/InviteBtn1.png" alt="Button 1" 
-              onClick={()=>{
+          <BtnBox>
+            <img
+              src="/image/InviteBtn1.png"
+              alt="Button 1"
+              onClick={() => {
                 navigate("/custom");
               }}
             />
-          </div>
-
+          </BtnBox>
           {/* 두 번째 버튼 클릭 시 FlowBtn이 나타나도록 */}
           <div onClick={handleSecondButtonClick}>
             <img src="/image/InviteBtn2.png" alt="Button 2" />
@@ -76,7 +77,25 @@ const Container = styled.div`
   position: relative;
 `;
 
+
+const SantaBox = styled.div`
+  width: 55%;
+  // position: fixed;
+  // bottom: 10.5rem;
+
+  img {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+`;
+
+const BtnContainer = styled.div`
+
 const BtnBox = styled.div`
+
   position: fixed;
   bottom: 6rem;
   left: 50%;
@@ -111,9 +130,19 @@ const BtnFlexBox = styled.div`
   }
 `;
 
+
+const ErrorMessage = styled.span`
+  color: #d00b0e;
+`;
+
+const BtnBox = styled.div`
+  // margin-bottom: 5px; /* 버튼들 간의 간격 */
+`;
+
 const FlowBtn = styled.div`
   position: absolute; /* FlowBtn을 두 번째 버튼 뒤에 배치 */
-  top: 85%; /* 두 번째 버튼 바로 아래에 위치 */
+  top: 95%; /* 두 번째 버튼 바로 아래에 위치 */
+  width: 60%;
   z-index: -2;
   ${({ isVisible }) =>
     isVisible &&
