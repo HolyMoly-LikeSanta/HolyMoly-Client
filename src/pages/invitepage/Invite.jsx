@@ -18,7 +18,6 @@ const Invite = () => {
   return (
     <Container>
       <TopNavBack />
-
       <BtnContainer>
         <SantaBox>
           <img src="/image/Santa.png" alt="" />
@@ -36,7 +35,6 @@ const Invite = () => {
               <ErrorMessage></ErrorMessage>
             )}
           </MessageBox>
-          {/* 첫 번째 버튼 */}
 
           <BtnBox>
             <img
