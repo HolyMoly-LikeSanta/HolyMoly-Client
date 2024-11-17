@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
 import { fetchCustomItems } from '../../apis/custom';
+import { HEADCOLORS } from '../../constant/colors';
 
 export const Custom = () => {
     const mockItems = {
@@ -22,10 +23,13 @@ export const Custom = () => {
         }],
         headItems:[{
             headId : 1,
-            imageUrl : '/image/tempCustom/hair1.png'
+            imageUrl : '/image/tempCustom/hair1.png',
+            color: 'black'
+
         },{
             headId : 2,
-            imageUrl : '/image/tempCustom/hair2.png'
+            imageUrl : '/image/tempCustom/hair2.png',
+            color: 'red'
         }],
         faceItems:[{
             faceId : 1,
@@ -38,13 +42,13 @@ export const Custom = () => {
     const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
     const [customItems, setCustomItems] = useState({});
+    const [selectedColor, setSelectedColor] = useState('black');
     const [selectedItem, setSelectedItem] = useState({
         head: {headId: 0, imageUrl: null},
         face: {faceId: 0, imageUrl: null},
         clothes: {clothesId: 0, imageUrl: null},
         accessory: {accessoryId: 0, imageUrl: null}
     });
-
     const handleCustomSelect = (id, imageUrl) => {
         setSelectedItem(prevState=>({
             ...prevState,
@@ -55,7 +59,7 @@ export const Custom = () => {
         console.log(selectedItem);
     }
 
-    const handleDeleteItem = () => {
+    const handleRemoveItem = () => {
         setSelectedItem(prevState=>({
             ...prevState,
             [selectedCategory]:{
@@ -67,6 +71,10 @@ export const Custom = () => {
 
     const handleCategorySelect = (selected) => {
         setSelectedCategory(selected);
+    }
+
+    const handleColorSelect = (colorName) => {
+        setSelectedColor(colorName);
     }
 
     const handleComplete = () => {
@@ -104,7 +112,18 @@ export const Custom = () => {
                     {selectedItem.clothes.imageUrl && <CustomItem id='clothes' src={selectedItem.clothes.imageUrl || null} />}
                     {selectedItem.accessory.imageUrl && <CustomItem id='accessory' src={selectedItem.accessory.imageUrl || null} />}
                 </CharacterBackground>
-                <CompleteButton onClick={handleComplete}>완료</CompleteButton>
+                <MiddleContainer>
+                    {selectedCategory === 'head' && <ColorPalette>
+                        {HEADCOLORS.map((color)=>(
+                            <ColorCircle key={color.id} 
+                            name={color.colorName}
+                            color={color.hex}
+                            onClick={()=>handleColorSelect(color.colorName)}
+                            />
+                        ))}
+                    </ColorPalette>}
+                    <CompleteButton onClick={handleComplete}>완료</CompleteButton>
+                </MiddleContainer>    
             </MainContainer>
             <CustomElementContainer>
                 <SelectionContainer>
@@ -122,11 +141,12 @@ export const Custom = () => {
                 </SelectionContainer>
                 <CustomElements>
                     <CustomElement 
-                    onClick={()=>handleDeleteItem()}
+                    onClick={()=>handleRemoveItem()}
                     id='none' 
                     src='/image/defaultCustom.png'/>
                     {selectedCategory === 'head' &&
-                        mockItems.headItems.map((item)=>
+                        mockItems.headItems.filter((item)=> item.color === selectedColor)
+                        .map((item)=>
                             <CustomElement 
                             id={item.id} 
                             src={item.imageUrl}
@@ -180,7 +200,7 @@ const CharacterBackground = styled.div`
     justify-content: center;
     align-items: center;
     width: 90%;
-    height: 47vh;
+    height: 45vh;
     backdrop-filter: blur(10px);
     box-shadow: -2px 2px 4px 0px #FFFFFF inset,
                 -4px -4px 6px 0px #D1D5DB inset,
@@ -189,15 +209,42 @@ const CharacterBackground = styled.div`
     border: solid 1.5px #46464622 ;
 `
 
+const MiddleContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 87%;
+    justify-content: space-between;
+    height: 37px;
+`
+const ColorPalette = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  width: 160px;
+  background: linear-gradient(90deg, #FFFFFF 0%, #E5E7EB 100%);
+  box-shadow: -2px -2px 4px 0px #00000040 inset;
+  border-radius: 10px;
+  z-index: 99;
+`;
+
+const ColorCircle = styled.button`
+    border-radius: 16px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+    background: ${({color})=> color || 'transparent'};
+`
+
 const CompleteButton = styled.div`
     font-size: 14px;
+    height: 35px;
     display: flex;
+    width: 100px;
     align-items: center;
     justify-content: center;
     align-self: flex-end;
-    margin-right: 5%;
-    width: 20%;
-    height: 4.5vh;
     border-radius: 13px;
     color: #DC2626;
     background: linear-gradient(138.66deg, rgba(255, 255, 255, 0.85) 23.4%, rgba(220, 38, 38, 0.85) 133.9%);
@@ -206,7 +253,8 @@ const CompleteButton = styled.div`
                 -4px -4px 6px 0px #FECDD3 inset,
                 -0.4px -0.4px 2px 0px #FDA4AF inset;
     cursor: pointer;
-    border: solid 1px #FDA4AF;
+    border: solid 1px #fbd6da97;
+    margin-left: auto; 
 `
 const CustomElementContainer = styled.div`
     width: 80%;
@@ -214,7 +262,7 @@ const CustomElementContainer = styled.div`
     border-right: 1.5px solid #D4D4D4;
     border-bottom: 0px; /* 아래쪽 테두리 없음 */
     border-left: 1.5px solid #D4D4D4;
-    height: 34vh;
+    height: 37vh;
     justify-self: flex-end;
     position: absolute;
     bottom: 0;
@@ -264,7 +312,6 @@ const Category = styled.div`
     box-shadow: ${({selected})=> selected ? "0px 3px 1px 0px #0000000A, 0px 3px 8px 0px #0000001F" : "none"};
     border-radius: ${({selected})=> selected ? "8px" : "0"};
     width: 85%;
-    align-self: center;
     justify-self: center;
     padding-top: 8%;
     padding-bottom: 8%;
@@ -276,7 +323,6 @@ const CustomElements = styled.div`
     column-gap: 2%;
     width: 100%;
     overflow-y: auto;
-   
 `;
 
 const CustomBackgroundElement = styled.div`
@@ -290,8 +336,6 @@ const CustomElement = styled.img`
     border-radius: 16px;
     width: 100%; 
     cursor: pointer;
-    visibility: ${({ src }) => (src == null ? 'hidden': 'visible')};
-    display: ${({ src }) => (src === null ? 'none': 'block')};;
 `
 
 const Character = styled.img`
@@ -304,7 +348,6 @@ const CustomItem = styled.img`
     position: absolute;
     width: 500px;
     height: 500px;
-    cursor: pointer;
 
     .head{
 
