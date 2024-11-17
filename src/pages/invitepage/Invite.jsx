@@ -21,6 +21,23 @@ const Invite = () => {
   return (
     <Container>
       <TopNavBack />
+      <BtnContainer>
+        <SantaBox>
+          <img src="/image/Santa.png" alt="" />
+        </SantaBox>
+        <BtnFlexBox>
+          <MessageBox>
+            {showError ? (
+              <ErrorBox>
+                <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
+                <ErrorMessage>
+                  &nbsp;`크리스마스 파티 준비` 먼저 해주세요!
+                </ErrorMessage>
+              </ErrorBox>
+            ) : (
+              <ErrorMessage></ErrorMessage>
+            )}
+          </MessageBox>
       <BtnBox>
         <BtnFlexBox>
           {/* 첫 번째 버튼 */}
