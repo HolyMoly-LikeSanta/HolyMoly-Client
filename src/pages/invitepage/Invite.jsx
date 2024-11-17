@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import TopNavBack from "../../components/TopNavBack";
 import styled, { keyframes, css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../auth/kakaoAuth";
+import TopNavBackNoBack from "../../components/TopNavNoBack";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
@@ -10,9 +10,10 @@ const Invite = () => {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  const accessToken = localStorage.getItem("accessToken");
+  useEffect(() => {
     kakaoLogin();
-  })  
+  });
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
@@ -21,7 +22,7 @@ const Invite = () => {
 
   return (
     <Container>
-      <TopNavBack />
+      <TopNavBackNoBack />
 
       <BtnContainer>
         <SantaBox>

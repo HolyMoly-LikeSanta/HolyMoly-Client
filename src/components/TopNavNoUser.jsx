@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MyPage } from "../modal/MyPage";
 
-const TopNavBack = () => {
+const TopNavBackNoUser = () => {
   const navigate = useNavigate();
   const [isMyPageOpen, setIsMyPageOpen] = useState(false);
 
@@ -14,13 +14,6 @@ const TopNavBack = () => {
   return (
     <>
       <Container>
-        {isMyPageOpen && (
-          <ModalOverlay onClick={() => setIsMyPageOpen(false)}>
-            <ModalContent onClick={(e) => e.stopPropagation()}>
-              <MyPage setIsMyPageOpen={setIsMyPageOpen} />
-            </ModalContent>
-          </ModalOverlay>
-        )}
         <BackIconWrapper>
           <BackIcon
             src="/image/BackIcon.png"
@@ -47,28 +40,7 @@ const TopNavBack = () => {
   );
 };
 
-export default TopNavBack;
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgb(255 255 255 / 50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const ModalContent = styled.div`
-  top: 70px;
-  left: 42%;
-  display: flex;
-  align-self: flex-end;
-  justify-self: end;
-  z-index: 1111;
-  position: absolute;
-`;
+export default TopNavBackNoUser;
 
 const Container = styled.div`
   position: fixed;
@@ -90,20 +62,21 @@ const Container = styled.div`
 
   z-index: 1;
 `;
+const BackIcon = styled.img`
+  width: 1rem;
+  cursor: pointer;
+`;
 
 const BackIconWrapper = styled.div`
-  width: 15%; /* 고정된 크기 */
+  width: 15%;
   text-align: center;
 `;
 
 const UserIconWrapper = styled.div`
-  width: 15%; /* 고정된 크기 */
+  opacity: 0; /* 아이콘 보이기/숨기기 */
+  pointer-events: none;
+  width: 15%;
   text-align: center;
-`;
-
-const BackIcon = styled.img`
-  width: 1rem;
-  cursor: pointer;
 `;
 
 const UserIcon = styled.img`
@@ -112,6 +85,7 @@ const UserIcon = styled.img`
 `;
 
 const AppTitle = styled.div`
+  flex-grow: 1;
   text-align: center;
   img {
     width: 40%;

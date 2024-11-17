@@ -65,6 +65,6 @@ const UserIcon = styled.img`
 const AppTitle = styled.div`
   text-align: center;
   img {
-    width: 50%;
+    width: 40%;
   }
 `;

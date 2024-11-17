@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import TopNavBack from "../../components/TopNavBack";
 import styled from "styled-components";
 import Modal from "../../components/Modal";
+import { postBoardLetter } from "../../apis/api";
 
 const MAX_NICKNAME_LENGTH = 10;
 const MAX_LETTER_LENGTH = 500; // Adjust this to your desired max length
@@ -49,8 +50,14 @@ const Letterwrite = () => {
     setIsModalOpen(false);
   };
 
-  const saveData = () => {
-    // 데이터 저장하는 것
+  const saveData = async () => {
+    try {
+      // API 호출
+      const response = await postBoardLetter(nickname, letter);
+      console.log(response);
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
   };
 
   // 이미지 파일 경로를 변수로 선언

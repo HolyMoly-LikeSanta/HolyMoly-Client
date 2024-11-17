@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MyPage } from "../modal/MyPage";
 
-const TopNavBack = () => {
+const TopNavBackNoBack = () => {
   const navigate = useNavigate();
   const [isMyPageOpen, setIsMyPageOpen] = useState(false);
 
@@ -47,7 +47,7 @@ const TopNavBack = () => {
   );
 };
 
-export default TopNavBack;
+export default TopNavBackNoBack;
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -90,20 +90,21 @@ const Container = styled.div`
 
   z-index: 1;
 `;
-
-const BackIconWrapper = styled.div`
-  width: 15%; /* 고정된 크기 */
-  text-align: center;
-`;
-
-const UserIconWrapper = styled.div`
-  width: 15%; /* 고정된 크기 */
-  text-align: center;
-`;
-
 const BackIcon = styled.img`
   width: 1rem;
   cursor: pointer;
+`;
+
+const BackIconWrapper = styled.div`
+  opacity: 0; /* 아이콘 보이기/숨기기 */
+  pointer-events: none;
+  text-align: center;
+  width: 15%;
+`;
+
+const UserIconWrapper = styled.div`
+  text-align: center;
+  width: 15%;
 `;
 
 const UserIcon = styled.img`
@@ -112,6 +113,7 @@ const UserIcon = styled.img`
 `;
 
 const AppTitle = styled.div`
+  flex-grow: 1;
   text-align: center;
   img {
     width: 40%;
