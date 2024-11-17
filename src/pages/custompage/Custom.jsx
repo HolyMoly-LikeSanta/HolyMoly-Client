@@ -4,6 +4,7 @@ import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
 import { fetchCustomItems } from '../../apis/custom';
 import { HEADCOLORS } from '../../constant/colors';
+import { CustomCharacter } from '../../components/CustomCharacter';
 
 export const Custom = () => {
     const mockItems = {
@@ -114,11 +115,7 @@ export const Custom = () => {
         <Container>
             <MainContainer>
                 <CharacterBackground src={selectedItem.bg.imageUrl}>
-                    <Character src='/image/defaultCharacter.png'/>
-                    {selectedItem.head.imageUrl  && <CustomItem id='head' src={selectedItem.head.imageUrl || null} />}
-                    <CustomItem id='face' src={selectedItem.face.imageUrl || '/image/defaultFace.png'} />
-                    {selectedItem.clothes.imageUrl && <CustomItem id='clothes' src={selectedItem.clothes.imageUrl || null} />}
-                    {selectedItem.accessory.imageUrl && <CustomItem id='accessory' src={selectedItem.accessory.imageUrl || null} />}
+                    <CustomCharacter selectedItem={selectedItem}/>
                 </CharacterBackground>
                 <MiddleContainer>
                     {selectedCategory === 'head' && <ColorPalette>
