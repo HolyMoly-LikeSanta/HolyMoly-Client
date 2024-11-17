@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TopNavBack from "../../components/TopNavBack";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Circle from "@uiw/react-color-circle";
 import { toPng } from "html-to-image";
+import { createBoard } from "../../apis/api";
 
 const MAX_NICKNAME_LENGTH = 10;
 
@@ -31,6 +32,13 @@ const InviteForm = () => {
 
   const [mission, setMission] = useState(missionData[0]); // 상태를 추가하여 랜덤 미션 저장
 
+  const accessToken = localStorage.getItem("accessToken");
+
+  const memberId = localStorage.getItem("memberId");
+  useEffect(() => {
+    createBoard(accessToken);
+  }, []);
+
   const handleNicknameChange = (e) => {
     const newNickname = e.target.value;
     if (newNickname.length <= MAX_NICKNAME_LENGTH) {
@@ -46,7 +54,7 @@ const InviteForm = () => {
   // URL 복사 함수
   const handleUrlCopy = () => {
     navigator.clipboard
-      .writeText("예시 url")
+      .writeText(`http://localhost:3000/stage/${memberId}`)
       .then(() => {
         alert("URL이 클립보드에 복사되었습니다.");
       })

@@ -7,14 +7,13 @@ const Modal = ({ isOpen, onClose, onConfirm, text }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        {text
-          ||
+        {text || (
           <p>
-          "편지가 저장되면 수정할 수 없어!
-          <br />
-          그래도 저장할래?"
-        </p>
-        }
+            "편지가 저장되면 수정할 수 없어!
+            <br />
+            그래도 저장할래?"
+          </p>
+        )}
         <ButtonGroup>
           <ModalButtonYes
             onClick={() => {
@@ -39,7 +38,7 @@ export default Modal;
 // Styled Components
 const ModalOverlay = styled.div`
   position: fixed;
-  top: 70px;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;

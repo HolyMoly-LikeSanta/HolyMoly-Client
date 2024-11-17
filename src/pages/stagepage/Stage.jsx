@@ -1,12 +1,12 @@
 import React from "react";
-import TopNavBack from "../../components/TopNavBack";
 import StageBoard from "../stagepage/Stageboard";
 import styled from "styled-components";
+import TopNavBackNoUser from "../../components/TopNavNoUser";
 
 const Stage = () => {
   return (
     <Container>
-      <TopNavBack></TopNavBack>
+      <TopNavBackNoUser></TopNavBackNoUser>
       <StageBoard></StageBoard>
       <UserImg src="/image/UserImgEx.png" alt="" />
     </Container>

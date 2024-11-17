@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TopNavBack from "../../components/TopNavBack";
 import Board from "./Board";
 import styled from "styled-components";
+import { createBoard, getBoardLetter, getUserData } from "../../apis/api";
 
 const Home = () => {
   return (

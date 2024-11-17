@@ -23,7 +23,7 @@ const Letter = () => {
             />
             <FromBox>
               {/* <img src="/image/FROM..png" alt="FromImg" /> */}
-              <span>FROM.&nbsp;&nbsp;{data.author}</span>
+              <span>FROM.&nbsp;&nbsp;{data.authorNickname}</span>
               <p>{data.content}</p>
             </FromBox>
           </InnerBox>
