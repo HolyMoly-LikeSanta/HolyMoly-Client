@@ -40,6 +40,14 @@ const Invite = () => {
           <BtnBox>
             <img src="/image/InviteBtn1.png" alt="Button 1" />
           </BtnBox>
+          <BtnBox>
+            <img src="/image/InviteBtn1.png" alt="Button 1" 
+              onClick={()=>{
+                navigate("/custom");
+              }}
+            />
+          </BtnBox>
+
 
           {/* 두 번째 버튼 클릭 시 FlowBtn이 나타나도록 */}
           <BtnBox onClick={handleSecondButtonClick}>
