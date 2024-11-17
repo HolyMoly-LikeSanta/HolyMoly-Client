@@ -14,9 +14,9 @@ const Invite = () => {
     setIsFlowBtnVisible(!isFlowBtnVisible);
   };
 
-  useEffect(()=>{
-    kakaoLogin()
-  },[])
+  useEffect(() => {
+    kakaoLogin();
+  }, []);
 
   return (
     <Container>
@@ -77,7 +77,6 @@ const Container = styled.div`
   position: relative;
 `;
 
-
 const SantaBox = styled.div`
   width: 55%;
   // position: fixed;
@@ -92,10 +91,9 @@ const SantaBox = styled.div`
   }
 `;
 
-const BtnContainer = styled.div`
+const BtnContainer = styled.div``;
 
 const BtnBox = styled.div`
-
   position: fixed;
   bottom: 6rem;
   left: 50%;
@@ -129,7 +127,6 @@ const BtnFlexBox = styled.div`
     }
   }
 `;
-
 
 const ErrorMessage = styled.span`
   color: #d00b0e;
