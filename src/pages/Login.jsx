@@ -5,12 +5,7 @@ import { kakaoLogin } from '../auth/kakaoAuth';
 
 export const Login = () => {
   const kakaoLoginLink = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
-
-  useEffect(()=>{
-    console.log(process.env.REACT_APP_KAKAO_REDIRECT_URI);
-    console.log(process.env.REACT_APP_KAKAO_REST_API_KEY);
-  },[])
-
+  
   const handleKakaoLogin = (e) => {
     e.preventDefault();
     window.location.href = kakaoLoginLink;
