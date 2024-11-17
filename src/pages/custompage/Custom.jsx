@@ -1,14 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
+import { fetchCustomItems } from '../../apis/custom';
 
 export const Custom = () => {
-    const [selectedCategory, setSelectedCategory] = useState('background');
+    const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
+    const [customItems, setCustomItems] = useState({});
+    const [selectedBg, setSelectedBg] = useState({id: 0, src: ''});
+    const [selectedHead, setSelectedHead] = useState({id: 0, src: ''});
+    const [selectedFace, setSelectedFace] = useState({id: 0, src: ''});
+    const [selectedClothes, setSelectedClothes] = useState({id: 0, src: ''});
+    const [selectedAccessory, setSelectedAccessory] = useState({id: 0, src: ''});
 
-    const handleSelect = (selected) => {
+    const mockHeadItem = {id: 1, src : '/image/tempHeadItem.png'};
+    const mockItems = {
+        accessoryItems : [{
+            accessoryId : 1,
+            imageUrl: '/image/tempCustom/acc1'
+        },{
+            accessoryId : 2,
+            imageUrl: '/image/tempCustom/acc2'
+        }],
+        clothesItems:[{
+            clothesId : 1,
+            imageUrl : '/image/tempCustom/clothes1'
+        },{
+            clothesId : 2,
+            imageUrl : '/image/tempCustom/clothes2'
+        }],
+        headItems:[{
+            headId : 1,
+            imageUrl : '/image/tempCustom/head1'
+        },{
+            clothesId : 2,
+            imageUrl : '/image/tempCustom/head2'
+        }],
+        faceItems:[{
+            headId : 1,
+            imageUrl : '/image/tempCustom/face1'
+        },{
+            clothesId : 2,
+            imageUrl : '/image/tempCustom/face2'
+        }]
+    }
+
+    const handleCategorySelect = (selected) => {
         setSelectedCategory(selected);
+    }
+
+    const handleCustomSelect = () => {
+
     }
 
     const handleComplete = () => {
@@ -18,6 +61,15 @@ export const Custom = () => {
     const handleSave = () => {
 
     }
+
+    useEffect(()=>{
+        const getCustomItems = async() => {
+            const result = await fetchCustomItems();
+            setCustomItems(result);
+            console.log(result);
+        }  
+        getCustomItems();
+    },[]);
 
   return (
     <>
@@ -30,25 +82,33 @@ export const Custom = () => {
         <TopNavBack />
         <Container>
             <MainContainer>
-                <CharacterBackground></CharacterBackground>
+                <CharacterBackground>
+                    <Character src='/image/defaultCharacter.png'/>
+                    <CustomItem id='head' />
+                    <CustomItem id='face' src='/image/defaultFace.png'/>
+                    <CustomItem id='clothes' />
+                    <CustomItem id='accessory' />
+                </CharacterBackground>
                 <CompleteButton onClick={handleComplete}>완료</CompleteButton>
             </MainContainer>
             <CustomElementContainer>
                 <SelectionContainer>
                     <Selection>
-                        <Category selected={selectedCategory === 'background'} onClick={()=>{handleSelect('background')}}>배경</Category>
+                        <Category selected={selectedCategory === 'bg'} onClick={()=>{handleCategorySelect('bg')}}>배경</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'hair'} onClick={()=>{handleSelect('hair')}}>머리</Category>
+                        <Category selected={selectedCategory === 'head'} onClick={()=>{handleCategorySelect('head')}}>머리</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'face'} onClick={()=>{handleSelect('face')}}>얼굴</Category>
+                        <Category selected={selectedCategory === 'face'} onClick={()=>{handleCategorySelect('face')}}>얼굴</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleSelect('clothes')}}>옷</Category>
+                        <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleCategorySelect('clothes')}}>옷</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'accessary'} onClick={()=>{handleSelect('accessary')}}>악세사리</Category>
+                        <Category selected={selectedCategory === 'accessory'} onClick={()=>{handleCategorySelect('accessry')}}>악세사리</Category>
                     </Selection>
                 </SelectionContainer>
                 <CustomElements>
-                    <CustomElement />
+                    <CustomElement id='none' src='/image/defaultCustom.png'/>
+            
+                    <CustomElement src={mockHeadItem.src} onClick={()=>{handleCustomSelect()}}/>
                 </CustomElements>
             </CustomElementContainer>
         </Container>
@@ -64,6 +124,7 @@ const Container = styled.div`
     padding-top: 10vh;
     position: relative;
     height: 90vh;
+    overflow-x: hidden;
 `
 const MainContainer = styled.div`
     display: flex;
@@ -74,6 +135,10 @@ const MainContainer = styled.div`
     gap: 1vh;
 `
 const CharacterBackground = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 90%;
     height: 47vh;
     backdrop-filter: blur(10px);
@@ -83,6 +148,7 @@ const CharacterBackground = styled.div`
     border-radius: 16px;
     border: solid 1.5px #46464622 ;
 `
+
 const CompleteButton = styled.div`
     font-size: 14px;
     display: flex;
@@ -176,12 +242,39 @@ const CustomElements = styled.div`
 const CustomBackgroundElement = styled.div`
     background-color: #EEEEEF;
     border-radius: 16px;
-    width: 100%; /* 원하는 크기로 설정 */
-    height: 20vh; /* 원하는 크기로 설정 */
+    width: 100%; 
+    height: 20vh; 
 `
-const CustomElement = styled.div`
+const CustomElement = styled.img`
     background-color: #EEEEEF;
     border-radius: 16px;
-    width: 100%; /* 원하는 크기로 설정 */
-    height: 13vh; /* 원하는 크기로 설정 */
+    width: 100%; 
+    //height: 13vh; 
+`
+
+const Character = styled.img`
+    border: none;
+    width: 500px;
+    height: 500px;
+`
+
+const CustomItem = styled.img`
+    position: absolute;
+    
+    width: 500px;
+    height: 500px;
+    cursor: pointer;
+
+    #head{
+
+    }
+    #face{
+
+    }
+    #clothes{
+
+    }
+    #accessory{
+
+    }
 `
