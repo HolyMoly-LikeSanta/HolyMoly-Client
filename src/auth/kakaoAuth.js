@@ -9,7 +9,7 @@ export const kakaoLogin = async () => {
             {'code': code}
         );
         const accessToken = response.data.accessToken;
-        localStorage.removeItem('accessToken');
+        //localStorage.removeItem('accessToken');
         localStorage.setItem('accessToken', accessToken);
     }catch(e){
         console.log(e);
