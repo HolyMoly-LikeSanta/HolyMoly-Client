@@ -91,7 +91,7 @@ const Board = () => {
         <ImgBackground>
           <WriteBtn
             src="/image/WriteBtn.png"
-            alt=""
+            alt="dfa"
             onClick={() => {
               navigate("/letterwrite");
             }}
