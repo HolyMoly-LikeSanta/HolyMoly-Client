@@ -14,35 +14,43 @@ export const Custom = () => {
     const [selectedClothes, setSelectedClothes] = useState({id: 0, src: ''});
     const [selectedAccessory, setSelectedAccessory] = useState({id: 0, src: ''});
 
+    const [selectedItem, setSelectedItem] = useState({
+        accessory: {id: 0, imageUrl: null},
+        accessory: {id: 0, imageUrl: null},
+        accessory: {id: 0, imageUrl: null},
+        accessory: {id: 0, imageUrl: null},
+        accessory: {id: 0, imageUrl: null}
+    });
+
     const mockHeadItem = {id: 1, src : '/image/tempHeadItem.png'};
     const mockItems = {
         accessoryItems : [{
             accessoryId : 1,
-            imageUrl: '/image/tempCustom/acc1'
+            imageUrl: '/image/tempCustom/acc1.png'
         },{
             accessoryId : 2,
-            imageUrl: '/image/tempCustom/acc2'
+            imageUrl: '/image/tempCustom/acc2.png'
         }],
         clothesItems:[{
             clothesId : 1,
-            imageUrl : '/image/tempCustom/clothes1'
+            imageUrl : '/image/tempCustom/clothes1.png'
         },{
             clothesId : 2,
-            imageUrl : '/image/tempCustom/clothes2'
+            imageUrl : '/image/tempCustom/clothes2.png'
         }],
         headItems:[{
             headId : 1,
-            imageUrl : '/image/tempCustom/head1'
+            imageUrl : '/image/tempCustom/hair1.png'
         },{
             clothesId : 2,
-            imageUrl : '/image/tempCustom/head2'
+            imageUrl : '/image/tempCustom/hair2.png'
         }],
         faceItems:[{
             headId : 1,
-            imageUrl : '/image/tempCustom/face1'
+            imageUrl : '/image/tempCustom/face1.png'
         },{
             clothesId : 2,
-            imageUrl : '/image/tempCustom/face2'
+            imageUrl : '/image/tempCustom/face2.png'
         }]
     }
 
@@ -102,13 +110,35 @@ export const Custom = () => {
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
                         <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleCategorySelect('clothes')}}>옷</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'accessory'} onClick={()=>{handleCategorySelect('accessry')}}>악세사리</Category>
+                        <Category selected={selectedCategory === 'accessory'} onClick={()=>{handleCategorySelect('accessory')}}>악세사리</Category>
                     </Selection>
                 </SelectionContainer>
                 <CustomElements>
                     <CustomElement id='none' src='/image/defaultCustom.png'/>
-            
-                    <CustomElement src={mockHeadItem.src} onClick={()=>{handleCustomSelect()}}/>
+                    {selectedCategory === 'head' &&
+                        mockItems.headItems.map((item)=>
+                            <CustomElement 
+                            id={item.id} 
+                            src={item.imageUrl}
+                            onClick={handleCustomSelect(item.id, item.src)}/>)}
+                    {selectedCategory === 'face' &&
+                        mockItems.faceItems.map((item)=>
+                            <CustomElement 
+                            id={item.id} 
+                            src={item.imageUrl}
+                            onClick={handleCustomSelect(item.id, item.src)}/>)}
+                    {selectedCategory === 'clothes' &&
+                        mockItems.clothesItems.map((item)=>
+                            <CustomElement 
+                            id={item.id} 
+                            src={item.imageUrl}
+                            onClick={handleCustomSelect(item.id, item.src)}/>)}
+                    {selectedCategory === 'accessory' &&
+                        mockItems.accessoryItems.map((item)=>
+                            <CustomElement 
+                            id={item.id} 
+                            src={item.imageUrl}
+                            onClick={handleCustomSelect(item.id, item.src)}/>)}
                 </CustomElements>
             </CustomElementContainer>
         </Container>
@@ -265,16 +295,16 @@ const CustomItem = styled.img`
     height: 500px;
     cursor: pointer;
 
-    #head{
+    .head{
 
     }
-    #face{
+    .face{
 
     }
-    #clothes{
+    .clothes{
 
     }
-    #accessory{
+    .accessory{
 
     }
 `
