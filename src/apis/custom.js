@@ -1,24 +1,40 @@
 import axios from "axios";
 
-const baseURL = `http://server.templ.es/item`;
+const baseURL = `https://server.templ.es/item`;
 
 export const fetchCustomItems = async() => {
     try{
+        const accessToken = localStorage.getItem('accessToken');
         const [bgItems, headItems, faceItems, clothesItems, accessoryItems] = await Promise.all([
-            axios.get(`${baseURL}/bg`),
-            axios.get(`${baseURL}/head`),
-            axios.get(`${baseURL}/face`),
-            axios.get(`${baseURL}/clothes`),
-            axios.get(`${baseURL}/accessory`)   
+            axios.get(`${baseURL}/bg`,{
+                headers : {
+                'Authorization': `Bearer ${accessToken}`,
+                }})
+            ,
+            axios.get(`${baseURL}/head`,{
+                headers:{
+                    'Authorization': `Bearer ${accessToken}`
+                }}),
+            axios.get(`${baseURL}/face`,{
+                headers:{
+                    'Authorization': `Bearer ${accessToken}`
+                }}),
+            axios.get(`${baseURL}/clothes`,{
+                headers:{
+                    'Authorization': `Bearer ${accessToken}`
+                }}),
+            axios.get(`${baseURL}/accessory`,{
+                headers:{
+                    'Authorization': `Bearer ${accessToken}`
+                }})   
         ]);
         const customItems = {
-            bgItems: [...bgItems],
-            headItems: [...headItems],
-            faceItems: [...faceItems],
-            clothesItems: [...clothesItems],
-            accessoryItems: [...accessoryItems],
+            bgItems: [...bgItems.data],
+            headItems: [...headItems.data],
+            faceItems: [...faceItems.data],
+            clothesItems: [...clothesItems.data],
+            accessoryItems: [...accessoryItems.data],
         }
-        console.log(customItems);
         return customItems;
     }catch(e){
         console.log(e);

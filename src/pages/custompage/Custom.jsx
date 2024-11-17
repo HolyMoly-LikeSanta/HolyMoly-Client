@@ -5,7 +5,7 @@ import Modal from '../../components/Modal';
 import { fetchCustomItems } from '../../apis/custom';
 
 export const Custom = () => {
-    const [selectedCategory, setSelectedCategory] = useState('background');
+    const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
     const [customItems, setCustomItems] = useState({});
     const [selectedBg, setSelectedBg] = useState({id: 0, src: ''});
@@ -15,6 +15,36 @@ export const Custom = () => {
     const [selectedAccessory, setSelectedAccessory] = useState({id: 0, src: ''});
 
     const mockHeadItem = {id: 1, src : '/image/tempHeadItem.png'};
+    const mockItems = {
+        accessoryItems : [{
+            accessoryId : 1,
+            imageUrl: '/image/tempCustom/acc1'
+        },{
+            accessoryId : 2,
+            imageUrl: '/image/tempCustom/acc2'
+        }],
+        clothesItems:[{
+            clothesId : 1,
+            imageUrl : '/image/tempCustom/clothes1'
+        },{
+            clothesId : 2,
+            imageUrl : '/image/tempCustom/clothes2'
+        }],
+        headItems:[{
+            headId : 1,
+            imageUrl : '/image/tempCustom/head1'
+        },{
+            clothesId : 2,
+            imageUrl : '/image/tempCustom/head2'
+        }],
+        faceItems:[{
+            headId : 1,
+            imageUrl : '/image/tempCustom/face1'
+        },{
+            clothesId : 2,
+            imageUrl : '/image/tempCustom/face2'
+        }]
+    }
 
     const handleCategorySelect = (selected) => {
         setSelectedCategory(selected);
@@ -36,6 +66,7 @@ export const Custom = () => {
         const getCustomItems = async() => {
             const result = await fetchCustomItems();
             setCustomItems(result);
+            console.log(result);
         }  
         getCustomItems();
     },[]);
@@ -53,19 +84,19 @@ export const Custom = () => {
             <MainContainer>
                 <CharacterBackground>
                     <Character src='/image/defaultCharacter.png'/>
-                    <CustomItem id='head'/>
+                    <CustomItem id='head' />
                     <CustomItem id='face' src='/image/defaultFace.png'/>
-                    <CustomItem id='clothes'/>
-                    <CustomItem id='accessory'/>
+                    <CustomItem id='clothes' />
+                    <CustomItem id='accessory' />
                 </CharacterBackground>
                 <CompleteButton onClick={handleComplete}>완료</CompleteButton>
             </MainContainer>
             <CustomElementContainer>
                 <SelectionContainer>
                     <Selection>
-                        <Category selected={selectedCategory === 'background'} onClick={()=>{handleCategorySelect('background')}}>배경</Category>
+                        <Category selected={selectedCategory === 'bg'} onClick={()=>{handleCategorySelect('bg')}}>배경</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'hair'} onClick={()=>{handleCategorySelect('hair')}}>머리</Category>
+                        <Category selected={selectedCategory === 'head'} onClick={()=>{handleCategorySelect('head')}}>머리</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
                         <Category selected={selectedCategory === 'face'} onClick={()=>{handleCategorySelect('face')}}>얼굴</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
@@ -76,7 +107,7 @@ export const Custom = () => {
                 </SelectionContainer>
                 <CustomElements>
                     <CustomElement id='none' src='/image/defaultCustom.png'/>
-                    
+            
                     <CustomElement src={mockHeadItem.src} onClick={()=>{handleCustomSelect()}}/>
                 </CustomElements>
             </CustomElementContainer>
@@ -219,17 +250,17 @@ const CustomElement = styled.img`
     border-radius: 16px;
     width: 100%; 
     //height: 13vh; 
-    
 `
 
 const Character = styled.img`
-    
+    border: none;
     width: 500px;
     height: 500px;
 `
 
 const CustomItem = styled.img`
     position: absolute;
+    
     width: 500px;
     height: 500px;
     cursor: pointer;
