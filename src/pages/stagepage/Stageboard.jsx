@@ -174,18 +174,18 @@ const Container = styled.div`
 
 const SantaUp = styled.img`
   position: absolute;
-  top: -55px;
+  top: -25%;
   left: 15%;
   z-index: 10;
-  width: 120px;
+  width: 80px;
 `;
 
 const SantaDown = styled.img`
   position: absolute;
   z-index: 0;
-  width: 12%;
-  bottom: -15%;
-  right: 18%;
+  width: 70px;
+  bottom: -20%;
+  right: 15%;
 `;
 
 const ImgBackground = styled.div`
