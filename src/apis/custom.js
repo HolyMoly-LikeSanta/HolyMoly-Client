@@ -1,42 +1,50 @@
 import axios from "axios";
 
-const baseURL = `https://server.templ.es/item`;
+const baseURL = `https://server.templ.es/user/me`;
 
-export const fetchCustomItems = async() => {
+export const createCustomCharacter = async (selectedItem) => {
+    const accessToken = localStorage.getItem('accessToken');
     try{
-        const accessToken = localStorage.getItem('accessToken');
-        const [bgItems, headItems, faceItems, clothesItems, accessoryItems] = await Promise.all([
-            axios.get(`${baseURL}/bg`,{
-                headers : {
-                'Authorization': `Bearer ${accessToken}`,
-                }})
-            ,
-            axios.get(`${baseURL}/head`,{
-                headers:{
-                    'Authorization': `Bearer ${accessToken}`
-                }}),
-            axios.get(`${baseURL}/face`,{
-                headers:{
-                    'Authorization': `Bearer ${accessToken}`
-                }}),
-            axios.get(`${baseURL}/clothes`,{
-                headers:{
-                    'Authorization': `Bearer ${accessToken}`
-                }}),
-            axios.get(`${baseURL}/accessory`,{
-                headers:{
-                    'Authorization': `Bearer ${accessToken}`
-                }})   
-        ]);
-        const customItems = {
-            bgItems: [...bgItems.data],
-            headItems: [...headItems.data],
-            faceItems: [...faceItems.data],
-            clothesItems: [...clothesItems.data],
-            accessoryItems: [...accessoryItems.data],
-        }
-        return customItems;
+        const response = await axios.post(`${baseURL}/character`,
+            selectedItem, {
+                headers: {Authorization: `Bearer ${accessToken}`}
+            }
+        )
     }catch(e){
         console.log(e);
     }
 }
+
+export const updateCustomCharacter = async (selectedItem) => {
+    const accessToken = localStorage.getItem('accessToken');
+    try{
+        const response = await axios.patch(`${baseURL}/character`,
+            selectedItem, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            }
+        )
+        return response.data;
+    }catch(e){
+        console.log(e);
+    }
+}
+
+export const checkPartyReadyAndgetCharacter = async() => {
+
+    const accessToken = localStorage.getItem('accessToken');
+    console.log(accessToken);
+    try{
+        const response = await axios.get(`${baseURL}/character`,{
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        return response.data;
+    }catch(e){
+        // 생성된 캐릭터가 없는 경우 에러
+        console.log(e);
+    }
+}
+
