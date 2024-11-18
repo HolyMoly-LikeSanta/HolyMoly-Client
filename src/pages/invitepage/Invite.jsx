@@ -12,6 +12,8 @@ const Invite = () => {
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
+
+  const memberId = localStorage.getItem("memberId");
   useEffect(() => {
     kakaoLogin();
 
@@ -21,6 +23,18 @@ const Invite = () => {
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
     setIsFlowBtnVisible(!isFlowBtnVisible);
+  };
+
+  // URL 복사 함수
+  const handleUrlCopy = () => {
+    navigator.clipboard
+      .writeText(`http://localhost:3000/stage/${memberId}`)
+      .then(() => {
+        alert("URL이 클립보드에 복사되었습니다.");
+      })
+      .catch((error) => {
+        console.error("URL 복사 실패:", error);
+      });
   };
 
   return (
@@ -72,7 +86,11 @@ const Invite = () => {
                   navigate("/inviteform");
                 }}
               />
-              <img src="/image/InviteBtn5.png" alt="URL주소" />
+              <img
+                src="/image/InviteBtn5.png"
+                alt="URL주소"
+                onClick={handleUrlCopy}
+              />
             </InviteBtnBox>
           </FlowBtn>
         </BtnFlexBox>

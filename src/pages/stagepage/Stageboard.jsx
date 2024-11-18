@@ -5,26 +5,34 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBoardLetterInvite } from "../../apis/api";
+import axios from "axios";
 
 // 반복될 이미지
 const images = [
   "/image/letterImg/Letter1.png",
-  "/image/letterImg/Letter5.png",
   "/image/letterImg/Letter2.png",
-  "/image/letterImg/Letter4.png",
   "/image/letterImg/Letter3.png",
+  "/image/letterImg/Letter4.png",
+  "/image/letterImg/Letter5.png",
   "/image/letterImg/Letter6.png",
 ];
 
 const Board = () => {
   const { memberId } = useParams();
   const [letterdata, setLetterData] = useState(null);
-  const navigate = useNavigate();
+  const [isSlideEnabled, setIsSlideEnabled] = useState(false); // 슬라이드 활성화 여부
 
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     console.log(memberId);
+    // const baseURL = `https://server.templ.es`;
+    // const response = axios.delete(`${baseURL}/board/1/letter/32`, {
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    // });
 
     localStorage.setItem("inviterMemberId", memberId);
 
@@ -34,6 +42,11 @@ const Board = () => {
         console.log(data);
 
         setLetterData(data);
+
+        // 데이터 개수가 7개 이상일 때만 슬라이드 활성화
+        if (data.length > 6) {
+          setIsSlideEnabled(true);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -46,9 +59,10 @@ const Board = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    slidesPerRow: 3, // 각 행에 3개의 아이템씩 보여주기
+    arrows: isSlideEnabled,
     rows: 2,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
@@ -198,13 +212,13 @@ const WriteBtn = styled.img`
 `;
 
 const SliderWrapper = styled.div`
-  width: 80%; /* 슬라이더의 넓이를 80%로 설정 */
+  width: 80%;
   margin: 0 auto; /* 중앙 정렬 */
 `;
 
 const ItemRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap; /* 아이템들이 한 줄에 2개씩 나열되도록 설정 */
 `;
 

@@ -26,7 +26,7 @@ const InviteForm = () => {
   const innerBoxRef = useRef(null); // 이미지화할 영역을 참조할 ref
 
   const [nickname, setNickname] = useState("");
-  const [hex, setHex] = useState("white");
+  const [hex, setHex] = useState("#FFC6C6");
 
   const [showErrorName, setShowErrorName] = useState(true); // 에러 메시지 표시 여부
 
@@ -92,8 +92,8 @@ const InviteForm = () => {
     <Container>
       <TopNavBack></TopNavBack>
       <FlexBox>
-        <Border>
-          <InnerBox ref={innerBoxRef} colorSelect={hex}>
+        <Border ref={innerBoxRef} colorSelect={hex}>
+          <InnerBox>
             <CloseIcon
               src="/image/Close.png"
               alt="CloseBtn"
@@ -102,7 +102,7 @@ const InviteForm = () => {
               }}
             />
             <LetterBox>
-              <Title>♡초대장♡</Title>
+              <Title colorSelect={hex}>♡초대장♡</Title>
               <InputBox colorSelect={hex}>
                 <div>TO.&nbsp;</div>
                 <input
@@ -207,8 +207,8 @@ const Border = styled.div`
   max-height: calc(
     100vh - 70px
   ); /* 화면 높이에서 TopNavBack과 패딩을 뺀 최대 높이 */
-  // height: 80vh;
   box-sizing: border-box;
+  height: auto; /* 내용에 맞게 자동으로 높이 조정 */
   padding: 1rem;
 
   box-shadow:
@@ -218,7 +218,7 @@ const Border = styled.div`
   /* width와 height를 동일하게 맞추는 설정 */
   aspect-ratio: 1 / 1;
 
-  background-color: #eab5b5;
+  background-color: ${(props) => props.colorSelect};
   border-radius: 1rem;
 
   @media screen and (max-width: 600px) {
@@ -228,7 +228,7 @@ const Border = styled.div`
 
 const InnerBox = styled.div`
   position: relative;
-  background-color: ${(props) => props.colorSelect};
+  background-color: white;
   padding: 2rem 2rem;
   border-radius: 1rem;
   height: 100%;
@@ -249,13 +249,6 @@ const MissonBox = styled.div`
   text-align: center;
 `;
 
-const LetterImgBox = styled.div`
-  position: absolute;
-  bottom: -3%;
-  img {
-    width: 100%;
-  }
-`;
 const CloseIcon = styled.img`
   position: absolute;
   width: 1.5rem;
@@ -269,7 +262,7 @@ const LetterBox = styled.div``;
 const Title = styled.div`
   font-size: 1.2rem;
   text-align: center;
-  color: #cc5959;
+  color: ${(props) => props.colorSelect};
 `;
 
 const FromBox = styled.div`
@@ -299,7 +292,6 @@ const InputBox = styled.div`
     border: 1px solid #a1a1aa;
     border-radius: 0.5rem;
     box-sizing: border-box;
-    background-color: ${(props) => props.colorSelect};
     font-family: "UhBee_SeHyun_Regular";
   }
 

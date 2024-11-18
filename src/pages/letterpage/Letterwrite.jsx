@@ -55,6 +55,7 @@ const Letterwrite = () => {
       // API 호출
       const response = await postBoardLetter(nickname, letter);
       console.log(response);
+      navigate(-1);
     } catch (error) {
       console.error("Error saving data:", error);
     }
