@@ -4,46 +4,38 @@ import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../auth/kakaoAuth";
 import TopNavBackNoBack from "../../components/TopNavNoBack";
 import { getUserData } from "../../apis/api";
-import { checkPartyReadyAndgetCharacter } from "../../apis/custom";
 import { useRecoilState } from "recoil";
 import {
   isCharacterCreatedRecoil,
   userCharacterRecoil,
 } from "../../recoil/userRecoil";
+import { useCheckAndGetPartyReady } from "../../hook/customUtil";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
   const [showError, setShowError] = useState(false); // 에러 메시지 표시 여부
   const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
-  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(
-    isCharacterCreatedRecoil
-  );
+  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
+  const checkAndGetPartyReady = useCheckAndGetPartyReady();
 
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
+  
+  useCheckAndGetPartyReady();
 
   const memberId = localStorage.getItem("memberId");
   useEffect(() => {
     const initialize = async () => {
       await kakaoLogin();
-      await getUserData(accessToken);
-
-      try{
-        // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
-        const result = await checkPartyReadyAndgetCharacter();
-        setUserCharacter(result);
-        setIsCharacterCreated(true);
-      }catch(e){
-        setIsCharacterCreated(false);
-      }
+      getUserData(accessToken);
     }
     initialize();
   },[]);
 
   const handleReadyParty = () => {
     if(isCharacterCreated){
-      navigate('/');
+      navigate('/home');
     }
     else if(!isCharacterCreated){
       navigate('/custom');
@@ -163,6 +155,9 @@ const Container = styled.div`
   background-color: white;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const SantaBox = styled.div`

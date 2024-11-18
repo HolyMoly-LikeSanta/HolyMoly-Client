@@ -18,10 +18,13 @@ export const Custom = () => {
     const [selectedColor, setSelectedColor] = useState('black');
     const [selectedItem, setSelectedItem] = useState({});
     const initializedCustom = useInitializeCustom(); 
+    const [loadInitial, setLoadInitial] = useState(false);
 
     useEffect(()=>{
-        setSelectedItem(initializedCustom);
-
+        if(!loadInitial){
+            setSelectedItem(initializedCustom);
+            setLoadInitial(true);
+        }
         // 브라우저에 새로고침 방지 알림 표시
         const handleBeforeUnload = (e) => {
             e.preventDefault();
@@ -82,11 +85,11 @@ export const Custom = () => {
         onClose={()=>setCompleteModal(false)} 
         text={"“파티 준비를 다 하셨나요?”"} 
         onConfirm={()=>handleSave()}/>}
-        <TopNavBack />
         <Container>
+        <TopNavBack />
             <MainContainer>
                 <CharacterBackground src={selectedItem?.bg.imageUrl}>
-                    <CustomCharacter selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
+                    <CustomCharacter selectedItem={selectedItem} loadInitial={loadInitial}/>
                 </CharacterBackground>
                 <MiddleContainer>
                     {selectedCategory === 'head' && <ColorPalette>
@@ -177,7 +180,7 @@ const CharacterBackground = styled.div`
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
-    
+
      //중앙정렬
     & > div {
     position: absolute;

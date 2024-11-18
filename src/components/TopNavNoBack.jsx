@@ -73,7 +73,7 @@ const ModalContent = styled.div`
 const Container = styled.div`
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 90%;
   max-width: 600px;
   max-height: 70px;
   height: 70px; // 네비게이션 바의 높이를 화면 비율에 맞춰 설정 (전체 화면의 10%)
@@ -89,6 +89,7 @@ const Container = styled.div`
   }
 
   z-index: 1;
+  margin-left: auto;
 `;
 const BackIcon = styled.img`
   width: 1rem;
@@ -108,7 +109,7 @@ const UserIconWrapper = styled.div`
 `;
 
 const UserIcon = styled.img`
-  width: 1.5rem;
+  width: 2rem;
   cursor: pointer;
 `;
 
@@ -116,6 +117,6 @@ const AppTitle = styled.div`
   flex-grow: 1;
   text-align: center;
   img {
-    width: 40%;
+    width: 55%;
   }
 `;

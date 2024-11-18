@@ -1,6 +1,8 @@
-import { useRecoilValue } from "recoil";
-import { userCharacterRecoil } from "../recoil/userRecoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isCharacterCreatedRecoil, userCharacterRecoil } from "../recoil/userRecoil";
 import { CUSTOMITEMS } from "../constant/customData";
+import { checkPartyReadyAndgetCharacter } from "../apis/custom";
+import { useEffect } from "react";
 
 const idToImageUrl = (category, id) => {
     const item =  CUSTOMITEMS[category]?.find((element)=> element[`${category}Id`] === id);
@@ -18,4 +20,23 @@ export const useInitializeCustom = () => {
         accessory: { id: initialCustomItems.accessoryId, imageUrl: idToImageUrl("accessory", initialCustomItems.accessoryId) },
     }
     return initializedCustom;
+}
+
+export const useCheckAndGetPartyReady = () => {
+    const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
+    const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
+
+    const fetchAndSetPartyReady = async () => {
+        try{
+            const result = await checkPartyReadyAndgetCharacter();
+            setUserCharacter(result);
+            setIsCharacterCreated(true);
+        }catch(e){
+            setIsCharacterCreated(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchAndSetPartyReady();
+    }, []);
 }

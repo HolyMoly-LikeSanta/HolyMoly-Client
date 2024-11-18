@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getUserData } from '../apis/api'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
+import { isCharacterCreatedRecoil } from '../recoil/userRecoil'
 
 export const MyPage = ({isMyPageOpen}) => {
     const [userData, setUserData] = useState({})
     const navigate = useNavigate();
+    const isCharacter = useRecoilValue(isCharacterCreatedRecoil);
 
     useEffect(()=>{
         const getUser = async() => {
@@ -30,7 +33,7 @@ export const MyPage = ({isMyPageOpen}) => {
         </ProfileHeader>
         <ProfileMiddle>
             <UpdateContainer>
-                <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>
+                { isCharacter && <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>}
                 <UpdateIcon src='/image/updateIcon.png'/>
             </UpdateContainer>
         </ProfileMiddle>

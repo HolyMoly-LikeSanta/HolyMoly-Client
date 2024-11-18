@@ -21,7 +21,6 @@ export const Login = () => {
             익명의 편지로 마음을 전하고, 따뜻한 연말을 함께하세요!
           </MainText>
         </MainContainer>
-        <MainImage />
         <ButtonContainer>
           <BtnDeco id='up' src='/image/loginBtnDecoUp.png'></BtnDeco>
           <MainButton
@@ -65,7 +64,7 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 72px;
+  gap: 250px;
 `;
 
 const MainContainer = styled.div`
@@ -83,14 +82,13 @@ const MainLogo = styled.img`
 const MainText = styled.div`
   color: white;
   font-size: 12px;
+  text-shadow: 
+    -1px -1px 0 black, /* 왼쪽 위 */
+    1px -1px 0 black,  /* 오른쪽 위 */
+    -1px 1px 0 black,  /* 왼쪽 아래 */
+    1px 1px 0 black;   /* 오른쪽 아래 */
 `;
 
-const MainImage = styled.div`
-  width: 230px;
-  height: 230px;
-  object-fit: cover;
-  margin-bottom: 8px;
-`;
 
 const ButtonContainer = styled.div`
   position: relative;

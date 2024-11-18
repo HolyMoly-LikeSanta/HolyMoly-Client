@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import React from 'react'
 import styled from 'styled-components'
-import { userCharacterRecoil } from '../recoil/userRecoil'
-import { useInitializeCustom } from '../hook/customUtil'
 
-export const CustomCharacter = ({ selectedItem }) => {
-    const initialCustomItems = useRecoilValue(userCharacterRecoil);
-    const [loadInitial, setLoadInitial] = useState(true);
-    const initializedCustom = useInitializeCustom();
- 
-    useEffect(() => {
-        console.log("initialCustomItems:", initialCustomItems);
-        console.log("selected", selectedItem);
-    }, [initializedCustom, selectedItem]);
+export const CustomCharacter = ({ selectedItem, loadInitial }) => {
 
     if (!loadInitial) {
         return <div>로딩중입니다..^^</div>; 
