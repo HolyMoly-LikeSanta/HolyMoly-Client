@@ -69,10 +69,21 @@ const InviteForm = () => {
       return;
     }
 
-    toPng(innerBoxRef.current)
+    const element = innerBoxRef.current;
+    const style = getComputedStyle(element);
+    const width =
+      element.offsetWidth +
+      parseFloat(style.marginLeft) +
+      parseFloat(style.marginRight);
+    const height =
+      element.offsetHeight +
+      parseFloat(style.marginTop) +
+      parseFloat(style.marginBottom);
+
+    toPng(element, { width, height })
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = "invite.png"; // 다운로드할 파일 이름
+        link.download = "invite.png";
         link.href = dataUrl;
         link.click();
       })
@@ -189,7 +200,7 @@ const Container = styled.div`
 const FlexBox = styled.div`
   width: 100%;
   position: absolute;
-  top: 70px;
+  top: 100px;
   height: calc(100vh - 70px); /* TopNavBack을 제외한 높이 */
   max-height: calc(
     100vh - 70px
@@ -203,12 +214,7 @@ const FlexBox = styled.div`
 
 const Border = styled.div`
   width: 60%;
-  margin-top: 5vh;
-  max-height: calc(
-    100vh - 70px
-  ); /* 화면 높이에서 TopNavBack과 패딩을 뺀 최대 높이 */
   box-sizing: border-box;
-  height: auto; /* 내용에 맞게 자동으로 높이 조정 */
   padding: 1rem;
 
   box-shadow:
@@ -217,6 +223,9 @@ const Border = styled.div`
 
   /* width와 height를 동일하게 맞추는 설정 */
   aspect-ratio: 1 / 1;
+
+  /* overflow 속성을 visible로 설정하여 잘리지 않게 */
+  overflow: visible;
 
   background-color: ${(props) => props.colorSelect};
   border-radius: 1rem;
@@ -247,6 +256,7 @@ const MissonBox = styled.div`
   width: 100%;
   margin-top: 1rem;
   text-align: center;
+  color: #343434;
 `;
 
 const CloseIcon = styled.img`
@@ -286,6 +296,10 @@ const InputBox = styled.div`
   display: flex;
   align-items: center;
 
+  div {
+    color: #27272a;
+  }
+
   input {
     width: 100%;
     padding: 0.5rem 0.8rem;
@@ -293,11 +307,11 @@ const InputBox = styled.div`
     border-radius: 0.5rem;
     box-sizing: border-box;
     font-family: "UhBee_SeHyun_Regular";
+    color: #343434;
   }
 
   input::placeholder {
-    font-weight: bold;
-    text-align: center;
+    color: #737373;
   }
 `;
 
@@ -327,7 +341,7 @@ const ErrorMessage = styled.span`
 
 const CharacterCount = styled.div`
   font-size: 0.9rem;
-  color: gray;
+  color: #27272a;
 `;
 
 const ColorRandomBox = styled.div`
