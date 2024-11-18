@@ -24,7 +24,7 @@ const TopNavBackNoUser = () => {
           />
         </BackIconWrapper>
         <AppTitle onClick={() => navigate("/")}>
-          <img src="/image/TopTitle.png"></img>
+          <img src="/image/HOLY_MOLY.png"></img>
         </AppTitle>{" "}
         <UserIconWrapper>
           <UserIcon
