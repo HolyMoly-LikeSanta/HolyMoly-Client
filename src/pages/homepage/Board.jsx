@@ -46,8 +46,7 @@ const Board = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
-    arrows: true, // 좌우 화살표 표시
-    arrows: true, // 좌우 화살표 표시
+    arrows: true,
     rows: 2,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
