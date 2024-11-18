@@ -21,22 +21,21 @@ const Invite = () => {
 
   const memberId = localStorage.getItem("memberId");
   useEffect(() => {
-    kakaoLogin();
+    const initialize = async () => {
+      await kakaoLogin();
+      await getUserData(accessToken);
 
-    getUserData(accessToken);
-
-    // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
-    const getIsCharacterCreated = async () =>{
-      const result = await checkPartyReadyAndgetCharacter();
-      setUserCharacter(result);
-      console.log(result);
+      try{
+        // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
+        const result = await checkPartyReadyAndgetCharacter();
+        setUserCharacter(result);
+        console.log(result);
+      }catch(e){
+        setIsCharacterCreated(false);
+        console.log(isCharacterCreated);
+      }
     }
-    try{  
-      getIsCharacterCreated();
-    }catch(e){
-      isCharacterCreated(false);
-      console.log(isCharacterCreated);
-    }
+    initialize();
   },[]);
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글

@@ -42,8 +42,7 @@ export const checkPartyReadyAndgetCharacter = async() => {
         })
         return response.data;
     }catch(e){
-        // 생성된 캐릭터가 없는 경우 에러
-        console.log(e);
+        throw new Error('캐릭터를 찾을 수 없습니다.');
     }
 }
 
