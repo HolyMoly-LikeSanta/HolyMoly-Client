@@ -4,17 +4,23 @@ import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
 import { CUSTOMITEMS, HEADCOLORS } from '../../constant/customData';
 import { CustomCharacter } from '../../components/CustomCharacter';
+import { useRecoilValue } from 'recoil';
+import { isCharacterCreatedRecoil } from '../../recoil/userRecoil';
+import { createCustomCharacter, updateCustomCharacter } from '../../apis/custom';
+import { useNavigate } from 'react-router-dom';
 
 export const Custom = () => {
+    const navigate = useNavigate();
+    const isCharacterCreated = useRecoilValue(isCharacterCreatedRecoil);
     const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
     const [selectedColor, setSelectedColor] = useState('black');
     const [selectedItem, setSelectedItem] = useState({
-        bg: {bgId: 0, imageUrl: null},
-        head: {headId: 0, imageUrl: null},
-        face: {faceId: 0, imageUrl: null},
-        clothes: {clothesId: 0, imageUrl: null},
-        accessory: {accessoryId: 0, imageUrl: null}
+        bg: {id: 0, imageUrl: null},
+        head: {id: 0, imageUrl: null},
+        face: {id: 0, imageUrl: null},
+        clothes: {id: 0, imageUrl: null},
+        accessory: {id: 0, imageUrl: null}
     });
 
     const handleCustomSelect = (id, imageUrl) => {
@@ -42,7 +48,22 @@ export const Custom = () => {
     }
 
     const handleSave = () => {
-        
+        const selectedItemIds = {
+            bgId: selectedItem.bg.id,
+            headId: selectedItem.head.id,
+            faceId: selectedItem.face.id,
+            clothesId: selectedItem.clothes.id,
+            accessoryId: selectedItem.accessory.id,
+        }
+        if(!isCharacterCreated){
+            console.log('생성: ',selectedItemIds);
+            createCustomCharacter(selectedItemIds);
+        }
+        else if(isCharacterCreated){
+            console.log('수정: ', selectedItemIds);
+            updateCustomCharacter(selectedItemIds);
+        }
+        navigate('/invite');
     }
 
   return (

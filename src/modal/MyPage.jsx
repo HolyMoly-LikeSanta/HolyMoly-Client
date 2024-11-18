@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { getUserData } from '../apis/api'
 
-export const MyPage = () => {
+export const MyPage = ({isMyPageOpen}) => {
+    const [userData, setUserData] = useState({})
+    const accessToken = localStorage.getItem("accessToken");
+
+    useEffect(()=>{
+        const getUser = async() => {
+            const result = await getUserData();
+            console.log(result);
+            setUserData(result);
+        }
+        getUser();
+    },[isMyPageOpen])
+
   return (
     <ModalContent onClick={(e) => e.stopPropagation()}>
         <ProfileHeader>

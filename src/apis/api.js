@@ -2,7 +2,8 @@ import axios from "axios";
 
 const baseURL = `https://server.templ.es`;
 
-export const getUserData = async (accessToken) => {
+export const getUserData = async () => {
+  const accessToken = localStorage.getItem('accessToken');
   try {
     const response = await axios.get(`${baseURL}/user/me`, {
       headers: {

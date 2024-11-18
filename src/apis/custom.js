@@ -25,7 +25,6 @@ export const updateCustomCharacter = async (selectedItem) => {
                 }
             }
         )
-        return response.data;
     }catch(e){
         console.log(e);
     }

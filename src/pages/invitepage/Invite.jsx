@@ -30,6 +30,7 @@ const Invite = () => {
         const result = await checkPartyReadyAndgetCharacter();
         setUserCharacter(result);
         console.log(result);
+        setIsCharacterCreated(true);
       }catch(e){
         setIsCharacterCreated(false);
         console.log(isCharacterCreated);
