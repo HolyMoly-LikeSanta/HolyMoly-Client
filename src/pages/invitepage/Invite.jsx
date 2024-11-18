@@ -10,7 +10,8 @@ import { isCharacterCreatedRecoil, userCharacterRecoil } from "../../recoil/user
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
-  const [showError, setShowError] = useState(true); // 에러 메시지 표시 여부
+  const [showError, setShowError] = useState(false); // 에러 메시지 표시 여부
+  //const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
   const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
 
@@ -30,12 +31,25 @@ const Invite = () => {
       setUserCharacter(result);
       console.log(result);
     }
-    getIsCharacterCreated();
+    try{  
+      getIsCharacterCreated();
+    }catch(e){
+      isCharacterCreated(false);
+      console.log(isCharacterCreated);
+    }
   },[]);
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
-    setIsFlowBtnVisible(!isFlowBtnVisible);
+    if(isCharacterCreated){
+      setIsFlowBtnVisible(!isFlowBtnVisible);
+    }
+    else if(!isCharacterCreated){
+      setShowError(true);
+      setTimeout(()=>{
+        setShowError(false);
+      }, 3500);
+    }
   };
 
   // URL 복사 함수
@@ -61,9 +75,9 @@ const Invite = () => {
         <BtnFlexBox>
           <MessageBox>
             {showError ? (
-              <ErrorBox>
-                <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
-                <ErrorMessage>
+              <ErrorBox>    
+                 <ErrorMessage>    
+                 <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
                   &nbsp;`크리스마스 파티 준비` 먼저 해주세요!
                 </ErrorMessage>
               </ErrorBox>
@@ -186,7 +200,7 @@ const MessageBox = styled.div`
   align-items: center;
   width: 100%;
   span {
-    font-size: 10px;
+    font-size: 13px;
   }
 `;
 
@@ -198,8 +212,24 @@ const ErrorBox = styled.div`
   }
 `;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
 const ErrorMessage = styled.span`
   color: #d00b0e;
+  animation: ${fadeOut} 0.5s forwards; /* 3초 후 완전히 투명해짐 */
+  animation-delay: 3s; /* 3초 후 시작 */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
 `;
 
 const BtnBox = styled.div`

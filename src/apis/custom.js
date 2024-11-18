@@ -34,7 +34,6 @@ export const updateCustomCharacter = async (selectedItem) => {
 export const checkPartyReadyAndgetCharacter = async() => {
 
     const accessToken = localStorage.getItem('accessToken');
-    console.log(accessToken);
     try{
         const response = await axios.get(`${baseURL}/character`,{
             headers: {
