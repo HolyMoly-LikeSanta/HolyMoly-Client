@@ -21,14 +21,14 @@ export const Custom = () => {
 
     useEffect(()=>{
         setSelectedItem(initializedCustom);
-        
+
         // 브라우저에 새로고침 방지 알림 표시
         const handleBeforeUnload = (e) => {
             e.preventDefault();
             e.returnValue = ""; 
           };
           window.addEventListener("beforeunload", handleBeforeUnload);
-          return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+          return () => {window.removeEventListener("beforeunload", handleBeforeUnload);}
     },[])
 
     const handleCustomSelect = (id, imageUrl) => {
@@ -159,12 +159,12 @@ const MainContainer = styled.div`
     align-items: center;
     width: 100%;
     gap: 1vh;
+
 `
 const CharacterBackground = styled.div`
-    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 90%;
     height: 45vh;
     backdrop-filter: blur(10px);
@@ -177,6 +177,14 @@ const CharacterBackground = styled.div`
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
+    
+     //중앙정렬
+    & > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
 `
 
 const MiddleContainer = styled.div`
