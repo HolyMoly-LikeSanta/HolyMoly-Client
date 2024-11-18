@@ -13,7 +13,7 @@ import {
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
-  const [showError, setShowError] = useState(true); // 에러 메시지 표시 여부
+  const [showError, setShowError] = useState(false); // 에러 메시지 표시 여부
   const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
   const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(
     isCharacterCreatedRecoil
@@ -25,22 +25,42 @@ const Invite = () => {
 
   const memberId = localStorage.getItem("memberId");
   useEffect(() => {
-    kakaoLogin();
+    const initialize = async () => {
+      await kakaoLogin();
+      await getUserData(accessToken);
 
-    getUserData(accessToken);
+      try{
+        // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
+        const result = await checkPartyReadyAndgetCharacter();
+        setUserCharacter(result);
+        setIsCharacterCreated(true);
+      }catch(e){
+        setIsCharacterCreated(false);
+      }
+    }
+    initialize();
+  },[]);
 
-    // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
-    const getIsCharacterCreated = async () => {
-      const result = await checkPartyReadyAndgetCharacter();
-      setUserCharacter(result);
-      console.log(result);
-    };
-    getIsCharacterCreated();
-  }, []);
+  const handleReadyParty = () => {
+    if(isCharacterCreated){
+      navigate('/');
+    }
+    else if(!isCharacterCreated){
+      navigate('/custom');
+    }
+  }
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
-    setIsFlowBtnVisible(!isFlowBtnVisible);
+    if(isCharacterCreated){
+      setIsFlowBtnVisible(!isFlowBtnVisible);
+    }
+    else if(!isCharacterCreated){
+      setShowError(true);
+      setTimeout(()=>{
+        setShowError(false);
+      }, 3500);
+    }
   };
 
   const handleUrlCopy = () => {
@@ -71,9 +91,9 @@ const Invite = () => {
         <BtnFlexBox>
           <MessageBox>
             {showError ? (
-              <ErrorBox>
-                <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
-                <ErrorMessage>
+              <ErrorBox>    
+                 <ErrorMessage>    
+                 <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
                   &nbsp;`크리스마스 파티 준비` 먼저 해주세요!
                 </ErrorMessage>
               </ErrorBox>
@@ -88,7 +108,7 @@ const Invite = () => {
               src="/image/InviteBtn1.png"
               alt="Button 1"
               onClick={() => {
-                navigate("/custom");
+                handleReadyParty();
               }}
             />
           </BtnBox>
@@ -196,7 +216,7 @@ const MessageBox = styled.div`
   align-items: center;
   width: 100%;
   span {
-    font-size: 10px;
+    font-size: 13px;
   }
 `;
 
@@ -208,8 +228,24 @@ const ErrorBox = styled.div`
   }
 `;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
 const ErrorMessage = styled.span`
   color: #d00b0e;
+  animation: ${fadeOut} 0.5s forwards; /* 3초 후 완전히 투명해짐 */
+  animation-delay: 3s; /* 3초 후 시작 */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
 `;
 
 const BtnBox = styled.div`

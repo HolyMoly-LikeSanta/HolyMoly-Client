@@ -2,7 +2,8 @@ import axios from "axios";
 
 const baseURL = `https://server.templ.es`;
 
-export const getUserData = async (accessToken) => {
+export const getUserData = async () => {
+  const accessToken = localStorage.getItem('accessToken');
   try {
     const response = await axios.get(`${baseURL}/user/me`, {
       headers: {
@@ -13,7 +14,7 @@ export const getUserData = async (accessToken) => {
 
     localStorage.setItem("memberId", response.data.memberId);
 
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }

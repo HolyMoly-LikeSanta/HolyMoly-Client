@@ -17,7 +17,7 @@ const TopNavBackNoBack = () => {
         {isMyPageOpen && (
           <ModalOverlay onClick={() => setIsMyPageOpen(false)}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
-              <MyPage setIsMyPageOpen={setIsMyPageOpen} />
+              <MyPage setIsMyPageOpen={setIsMyPageOpen} isMyPageOpen={isMyPageOpen}/>
             </ModalContent>
           </ModalOverlay>
         )}
