@@ -10,11 +10,15 @@ export const MyPage = ({isMyPageOpen}) => {
     useEffect(()=>{
         const getUser = async() => {
             const result = await getUserData();
-            console.log(result);
             setUserData(result);
         }
         getUser();
     },[isMyPageOpen])
+
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+    }
 
   return (
     <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -30,7 +34,7 @@ export const MyPage = ({isMyPageOpen}) => {
                 <UpdateIcon src='/image/updateIcon.png'/>
             </UpdateContainer>
         </ProfileMiddle>
-        <LogoutBtn>로그아웃</LogoutBtn>
+        <LogoutBtn onClick={()=>{handleLogout()}}>로그아웃</LogoutBtn>
     </ModalContent>
   )
 }
@@ -104,6 +108,7 @@ const UpdateContainer = styled.div`
     height: 21px;
     background: linear-gradient(119.66deg, #E0F2FE -82.08%, #14532D 123.96%);
     cursor: pointer;
+    gap: 3px;
 `
 const UpdateIcon = styled.img`
     width: 8px;
