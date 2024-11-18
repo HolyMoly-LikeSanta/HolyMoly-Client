@@ -180,6 +180,7 @@ const CharacterBackground = styled.div`
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
+    position: relative;
 
      //중앙정렬
     & > div {
@@ -236,6 +237,7 @@ const CompleteButton = styled.div`
     cursor: pointer;
     border: solid 1px #fbd6da97;
     margin-left: auto; 
+    z-index: 999;
 `
 const CustomElementContainer = styled.div`
     width: 80%;
