@@ -41,7 +41,7 @@ const ModalContent = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 18vh;
+    height: 20vh;
     background-color: #fff;
     padding: 20px;
     border-top-left-radius: 16px;

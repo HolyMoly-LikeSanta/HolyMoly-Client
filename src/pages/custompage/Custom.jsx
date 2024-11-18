@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { isCharacterCreatedRecoil } from '../../recoil/userRecoil';
 import { createCustomCharacter, updateCustomCharacter } from '../../apis/custom';
 import { useNavigate } from 'react-router-dom';
+import { useInitializeCustom } from '../../hook/customUtil';
 
 export const Custom = () => {
     const navigate = useNavigate();
@@ -15,13 +16,12 @@ export const Custom = () => {
     const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
     const [selectedColor, setSelectedColor] = useState('black');
-    const [selectedItem, setSelectedItem] = useState({
-        bg: {id: 0, imageUrl: null},
-        head: {id: 0, imageUrl: null},
-        face: {id: 0, imageUrl: null},
-        clothes: {id: 0, imageUrl: null},
-        accessory: {id: 0, imageUrl: null}
-    });
+    const [selectedItem, setSelectedItem] = useState({});
+    const initializedCustom = useInitializeCustom(); 
+
+    useEffect(()=>{
+        setSelectedItem(initializedCustom);
+    },[])
 
     const handleCustomSelect = (id, imageUrl) => {
         setSelectedItem(prevState=>({
@@ -43,10 +43,6 @@ export const Custom = () => {
         }))
     }
 
-    const handleComplete = () => {
-        setCompleteModal(true);
-    }
-
     const handleSave = () => {
         const selectedItemIds = {
             bgId: selectedItem.bg.id,
@@ -66,6 +62,10 @@ export const Custom = () => {
         navigate('/invite');
     }
 
+    if (Object.keys(selectedItem).length === 0) {
+        return <div>로딩중입니다..^^</div>; 
+      }
+
   return (
     <>
         {completeModal && 
@@ -77,7 +77,7 @@ export const Custom = () => {
         <TopNavBack />
         <Container>
             <MainContainer>
-                <CharacterBackground src={selectedItem.bg.imageUrl}>
+                <CharacterBackground src={selectedItem?.bg.imageUrl}>
                     <CustomCharacter selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
                 </CharacterBackground>
                 <MiddleContainer>
@@ -90,7 +90,7 @@ export const Custom = () => {
                             />
                         ))}
                     </ColorPalette>}
-                    <CompleteButton onClick={handleComplete}>완료</CompleteButton>
+                    <CompleteButton onClick={()=>setCompleteModal(true)}>완료</CompleteButton>
                 </MiddleContainer>    
             </MainContainer>
             <CustomElementContainer>
