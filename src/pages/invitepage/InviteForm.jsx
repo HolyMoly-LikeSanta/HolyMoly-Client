@@ -51,10 +51,15 @@ const InviteForm = () => {
     }
   };
 
-  // URL 복사 함수
   const handleUrlCopy = () => {
+    // 현재 도메인 (예: http://localhost:3000 또는 배포된 사이트의 URL)
+    const currentOrigin = window.location.origin;
+
+    // 복사할 URL 생성
+    const fullUrl = `${currentOrigin}/stage/${memberId}`;
+
     navigator.clipboard
-      .writeText(`http://localhost:3000/stage/${memberId}`)
+      .writeText(fullUrl)
       .then(() => {
         alert("URL이 클립보드에 복사되었습니다.");
       })

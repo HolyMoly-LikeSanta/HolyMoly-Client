@@ -6,13 +6,18 @@ import TopNavBackNoBack from "../../components/TopNavNoBack";
 import { getUserData } from "../../apis/api";
 import { checkPartyReadyAndgetCharacter } from "../../apis/custom";
 import { useRecoilState } from "recoil";
-import { isCharacterCreatedRecoil, userCharacterRecoil } from "../../recoil/userRecoil"
+import {
+  isCharacterCreatedRecoil,
+  userCharacterRecoil,
+} from "../../recoil/userRecoil";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
   const [showError, setShowError] = useState(true); // 에러 메시지 표시 여부
   const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
-  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
+  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(
+    isCharacterCreatedRecoil
+  );
 
   const navigate = useNavigate();
 
@@ -25,23 +30,28 @@ const Invite = () => {
     getUserData(accessToken);
 
     // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
-    const getIsCharacterCreated = async () =>{
+    const getIsCharacterCreated = async () => {
       const result = await checkPartyReadyAndgetCharacter();
       setUserCharacter(result);
       console.log(result);
-    }
+    };
     getIsCharacterCreated();
-  },[]);
+  }, []);
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
     setIsFlowBtnVisible(!isFlowBtnVisible);
   };
 
-  // URL 복사 함수
   const handleUrlCopy = () => {
+    // 현재 도메인 (예: http://localhost:3000 또는 배포된 사이트의 URL)
+    const currentOrigin = window.location.origin;
+
+    // 복사할 URL 생성
+    const fullUrl = `${currentOrigin}/stage/${memberId}`;
+
     navigator.clipboard
-      .writeText(`http://localhost:3000/stage/${memberId}`)
+      .writeText(fullUrl)
       .then(() => {
         alert("URL이 클립보드에 복사되었습니다.");
       })
