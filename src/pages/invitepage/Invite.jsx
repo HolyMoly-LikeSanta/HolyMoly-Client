@@ -4,10 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../auth/kakaoAuth";
 import TopNavBackNoBack from "../../components/TopNavNoBack";
 import { getUserData } from "../../apis/api";
+import { checkPartyReadyAndgetCharacter } from "../../apis/custom";
+import { useRecoilState } from "recoil";
+import { isCharacterCreatedRecoil, userCharacterRecoil } from "../../recoil/userRecoil"
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
   const [showError, setShowError] = useState(true); // 에러 메시지 표시 여부
+  const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
+  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
 
   const navigate = useNavigate();
 
@@ -16,7 +21,15 @@ const Invite = () => {
     kakaoLogin();
 
     getUserData(accessToken);
-  });
+
+    // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
+    const getIsCharacterCreated = async () =>{
+      const result = await checkPartyReadyAndgetCharacter();
+      setUserCharacter(result);
+      console.log(result);
+    }
+    getIsCharacterCreated();
+  },[]);
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {

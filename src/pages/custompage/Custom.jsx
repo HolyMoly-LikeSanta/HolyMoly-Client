@@ -1,55 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
-import { fetchCustomItems } from '../../apis/custom';
-import { HEADCOLORS } from '../../constant/colors';
+import { CUSTOMITEMS, HEADCOLORS } from '../../constant/customData';
 import { CustomCharacter } from '../../components/CustomCharacter';
 
 export const Custom = () => {
-    const mockItems = {
-        bgItems : [{
-            bgId: 1,
-            imageUrl: '/image/tempCustom/bg1.png'
-        },{
-            bgId: 1, 
-            imageUrl: '/image/tempCustom/bg2.png'
-        }],
-        accessoryItems : [{
-            accessoryId : 1,
-            imageUrl: '/image/tempCustom/acc1.png'
-        },{
-            accessoryId : 2,
-            imageUrl: '/image/tempCustom/acc2.png'
-        }],
-        clothesItems:[{
-            clothesId : 1,
-            imageUrl : '/image/tempCustom/clothes1.png'
-        },{
-            clothesId : 2,
-            imageUrl : '/image/tempCustom/clothes2.png'
-        }],
-        headItems:[{
-            headId : 1,
-            imageUrl : '/image/tempCustom/hair1.png',
-            color: 'black'
-
-        },{
-            headId : 2,
-            imageUrl : '/image/tempCustom/hair2.png',
-            color: 'red'
-        }],
-        faceItems:[{
-            faceId : 1,
-            imageUrl : '/image/tempCustom/face1.png'
-        },{
-            faceId : 2,
-            imageUrl : '/image/tempCustom/face2.png'
-        }]
-    }
     const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
-    const [customItems, setCustomItems] = useState({});
     const [selectedColor, setSelectedColor] = useState('black');
     const [selectedItem, setSelectedItem] = useState({
         bg: {bgId: 0, imageUrl: null},
@@ -58,6 +16,7 @@ export const Custom = () => {
         clothes: {clothesId: 0, imageUrl: null},
         accessory: {accessoryId: 0, imageUrl: null}
     });
+
     const handleCustomSelect = (id, imageUrl) => {
         setSelectedItem(prevState=>({
             ...prevState,
@@ -78,30 +37,13 @@ export const Custom = () => {
         }))
     }
 
-    const handleCategorySelect = (selected) => {
-        setSelectedCategory(selected);
-    }
-
-    const handleColorSelect = (colorName) => {
-        setSelectedColor(colorName);
-    }
-
     const handleComplete = () => {
         setCompleteModal(true);
     }
 
     const handleSave = () => {
-
+        
     }
-
-    useEffect(()=>{
-        const getCustomItems = async() => {
-            const result = await fetchCustomItems();
-            setCustomItems(result);
-            console.log(result);
-        }  
-        getCustomItems();
-    },[]);
 
   return (
     <>
@@ -123,7 +65,7 @@ export const Custom = () => {
                             <ColorCircle key={color.id} 
                             name={color.colorName}
                             color={color.hex}
-                            onClick={()=>handleColorSelect(color.colorName)}
+                            onClick={()=>setSelectedColor(color.colorName)}
                             />
                         ))}
                     </ColorPalette>}
@@ -133,15 +75,15 @@ export const Custom = () => {
             <CustomElementContainer>
                 <SelectionContainer>
                     <Selection>
-                        <Category selected={selectedCategory === 'bg'} onClick={()=>{handleCategorySelect('bg')}}>배경</Category>
+                        <Category selected={selectedCategory === 'bg'} onClick={()=>{setSelectedCategory('bg')}}>배경</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'head'} onClick={()=>{handleCategorySelect('head')}}>머리</Category>
+                        <Category selected={selectedCategory === 'head'} onClick={()=>{setSelectedCategory('head')}}>머리</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'face'} onClick={()=>{handleCategorySelect('face')}}>얼굴</Category>
+                        <Category selected={selectedCategory === 'face'} onClick={()=>{setSelectedCategory('face')}}>얼굴</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'clothes'} onClick={()=>{handleCategorySelect('clothes')}}>옷</Category>
+                        <Category selected={selectedCategory === 'clothes'} onClick={()=>{setSelectedCategory('clothes')}}>옷</Category>
                         <SelectionDivider src="/image/Separator.png"></SelectionDivider>
-                        <Category selected={selectedCategory === 'accessory'} onClick={()=>{handleCategorySelect('accessory')}}>악세사리</Category>
+                        <Category selected={selectedCategory === 'accessory'} onClick={()=>{setSelectedCategory('accessory')}}>악세사리</Category>
                     </Selection>
                 </SelectionContainer>
                 <CustomElements>
@@ -150,39 +92,20 @@ export const Custom = () => {
                     id='remove'
                     src='/image/defaultCustom.png'
                     type={selectedCategory}/>
-                    {selectedCategory === 'bg' &&
-                        mockItems.bgItems.map((item)=>
-                            <CustomElement
-                            key={item.id}
-                            src={item.imageUrl}
-                            onClick={()=>handleCustomSelect(item.bgId, item.imageUrl)}
-                            type='bg'
-                            />)}
                     {selectedCategory === 'head' &&
-                        mockItems.headItems.filter((item)=> item.color === selectedColor)
+                        CUSTOMITEMS.head.filter((item)=> item.color === selectedColor)
                         .map((item)=>
                             <CustomElement 
                             key={item.headId} 
                             src={item.imageUrl}
                             onClick={()=>handleCustomSelect(item.headId, item.imageUrl)}/>)}
-                    {selectedCategory === 'face' &&
-                        mockItems.faceItems.map((item)=>
-                            <CustomElement 
-                            key={item.faceId} 
-                            src={item.imageUrl}
-                            onClick={()=>handleCustomSelect(item.faceId, item.imageUrl)}/>)}
-                    {selectedCategory === 'clothes' &&
-                        mockItems.clothesItems.map((item)=>
-                            <CustomElement 
-                            key={item.clothesId} 
-                            src={item.imageUrl}
-                            onClick={()=>handleCustomSelect(item.clothesId, item.imageUrl)}/>)}
-                    {selectedCategory === 'accessory' &&
-                        mockItems.accessoryItems.map((item)=>
-                            <CustomElement 
-                            key={item.accessoryId} 
-                            src={item.imageUrl}
-                            onClick={()=>handleCustomSelect(item.accessoryId, item.imageUrl)}/>)}
+                    {selectedCategory !== 'head' &&
+                        CUSTOMITEMS[selectedCategory].map((item) => 
+                        <CustomElement
+                            type={selectedCategory === 'bg' ? 'bg' : ''}
+                            key={item[`${selectedCategory}Id`]}
+                            src={item.imageUrl} 
+                            onClick={() =>handleCustomSelect(item[`${selectedCategory}Id`], item.imageUrl)}/>)}
                 </CustomElements>
             </CustomElementContainer>
         </Container>
@@ -293,7 +216,7 @@ const CustomElementContainer = styled.div`
 `
 const SelectionContainer = styled.div`
     width: 100%;
-    height: 7vh;
+    height: 6vh;
     display: flex;
     justify-content: center;
 `
@@ -340,8 +263,13 @@ const CustomElements = styled.div`
     row-gap: 5%;
     column-gap: 3%;
     width: 100%;
-    overflow-y: auto;
-`;
+    overflow-y: auto; 
+    max-height: 37vh;
+    min-height: 67%;
+    overflow-y: auto; 
+    padding-top: 3%;
+    padding-bottom: 3%;
+`
 
 const CustomElement = styled.img`
     background-color: #EEEEEF;
@@ -349,30 +277,5 @@ const CustomElement = styled.img`
     width: 100%; 
     cursor: pointer;
     object-fit: cover;
-    height: ${({type})=> type === 'bg' ? '15vh' : 'none'};
-`
-
-const Character = styled.img`
-    border: none;
-    width: 500px;
-    height: 500px;
-`
-
-const CustomItem = styled.img`
-    position: absolute;
-    width: 500px;
-    height: 500px;
-
-    .head{
-
-    }
-    .face{
-
-    }
-    .clothes{
-
-    }
-    .accessory{
-
-    }
+    height: ${({type})=> type === 'bg' ? '15vh' : ''};
 `
