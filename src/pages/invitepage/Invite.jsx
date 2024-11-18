@@ -3,6 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../auth/kakaoAuth";
 import TopNavBackNoBack from "../../components/TopNavNoBack";
+import { getUserData } from "../../apis/api";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
@@ -13,6 +14,8 @@ const Invite = () => {
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     kakaoLogin();
+
+    getUserData(accessToken);
   });
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
