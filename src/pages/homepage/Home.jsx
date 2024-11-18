@@ -1,19 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TopNavBack from "../../components/TopNavBack";
 import Board from "./Board";
 import styled from "styled-components";
 import { createBoard, getBoardLetter, getUserData } from "../../apis/api";
 import { CustomCharacter } from "../../components/CustomCharacter";
-import { useInitializeCustom } from "../../hook/customUtil";
+import { useCheckAndGetPartyReady, useInitializeCustom } from "../../hook/customUtil";
 
 const Home = () => {
-  const initializedCustom = useInitializeCustom(); 
+  const [loadInitial, setLoadInitial] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+  const initializedCustom = useInitializeCustom();
+
+  useCheckAndGetPartyReady();
+
+  useEffect(()=>{
+    if(!loadInitial){
+      setSelectedItem(initializedCustom);
+      setLoadInitial(true);
+    }
+  },[])
 
   return (
     <Container imageUrl={initializedCustom.bg.imageUrl}>
       <TopNavBack></TopNavBack>
       <Board></Board>
-      <CustomCharacter selectedItem={initializedCustom}/>
+      <CustomCharacter selectedItem={initializedCustom} loadInitial={loadInitial}/>
     </Container>
   );
 };
