@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getUserData } from '../apis/api'
+import { useNavigate } from 'react-router-dom'
 
 export const MyPage = ({isMyPageOpen}) => {
     const [userData, setUserData] = useState({})
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const getUser = async() => {
@@ -24,7 +26,7 @@ export const MyPage = ({isMyPageOpen}) => {
         </ProfileHeader>
         <ProfileMiddle>
             <UpdateContainer>
-                <UpdateCharacterBtn>캐릭터 수정하기</UpdateCharacterBtn>
+                <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>
                 <UpdateIcon src='/image/updateIcon.png'/>
             </UpdateContainer>
         </ProfileMiddle>

@@ -28,15 +28,22 @@ const Invite = () => {
         // 캐릭터 정보 저장!! (캐릭터 생성 여부, 캐릭터 커스텀 요소 정보)
         const result = await checkPartyReadyAndgetCharacter();
         setUserCharacter(result);
-        console.log(result);
         setIsCharacterCreated(true);
       }catch(e){
         setIsCharacterCreated(false);
-        console.log(isCharacterCreated);
       }
     }
     initialize();
   },[]);
+
+  const handleReadyParty = () => {
+    if(isCharacterCreated){
+      navigate('/');
+    }
+    else if(!isCharacterCreated){
+      navigate('/custom');
+    }
+  }
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
@@ -91,7 +98,7 @@ const Invite = () => {
               src="/image/InviteBtn1.png"
               alt="Button 1"
               onClick={() => {
-                navigate("/custom");
+                handleReadyParty();
               }}
             />
           </BtnBox>
