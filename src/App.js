@@ -15,7 +15,8 @@ function App() {
   return (
     <AppDom>
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/home" element={<Home />} />
         <Route path="/stage/:memberId" element={<Stage />} />
         <Route path="login" element={<Login />} />
         <Route path="custom" element={<Custom />} />

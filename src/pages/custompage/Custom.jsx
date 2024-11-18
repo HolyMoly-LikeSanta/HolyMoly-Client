@@ -1,21 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TopNavBack from '../../components/TopNavBack'
 import Modal from '../../components/Modal';
 import { CUSTOMITEMS, HEADCOLORS } from '../../constant/customData';
 import { CustomCharacter } from '../../components/CustomCharacter';
+import { useRecoilValue } from 'recoil';
+import { isCharacterCreatedRecoil } from '../../recoil/userRecoil';
+import { createCustomCharacter, updateCustomCharacter } from '../../apis/custom';
+import { useNavigate } from 'react-router-dom';
+import { useInitializeCustom } from '../../hook/customUtil';
 
 export const Custom = () => {
+    const navigate = useNavigate();
+    const isCharacterCreated = useRecoilValue(isCharacterCreatedRecoil);
     const [selectedCategory, setSelectedCategory] = useState('bg');
     const [completeModal, setCompleteModal] = useState(false);
     const [selectedColor, setSelectedColor] = useState('black');
-    const [selectedItem, setSelectedItem] = useState({
-        bg: {bgId: 0, imageUrl: null},
-        head: {headId: 0, imageUrl: null},
-        face: {faceId: 0, imageUrl: null},
-        clothes: {clothesId: 0, imageUrl: null},
-        accessory: {accessoryId: 0, imageUrl: null}
-    });
+    const [selectedItem, setSelectedItem] = useState({});
+    const initializedCustom = useInitializeCustom(); 
+    const [loadInitial, setLoadInitial] = useState(false);
+
+    useEffect(()=>{
+        if(!loadInitial){
+            setSelectedItem(initializedCustom);
+            setLoadInitial(true);
+        }
+        // 브라우저에 새로고침 방지 알림 표시
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = ""; 
+          };
+          window.addEventListener("beforeunload", handleBeforeUnload);
+          return () => {window.removeEventListener("beforeunload", handleBeforeUnload);}
+    },[])
 
     const handleCustomSelect = (id, imageUrl) => {
         setSelectedItem(prevState=>({
@@ -37,13 +54,28 @@ export const Custom = () => {
         }))
     }
 
-    const handleComplete = () => {
-        setCompleteModal(true);
+    const handleSave = () => {
+        const selectedItemIds = {
+            bgId: selectedItem.bg.id,
+            headId: selectedItem.head.id,
+            faceId: selectedItem.face.id,
+            clothesId: selectedItem.clothes.id,
+            accessoryId: selectedItem.accessory.id,
+        }
+        if(!isCharacterCreated){
+            console.log('생성: ',selectedItemIds);
+            createCustomCharacter(selectedItemIds);
+        }
+        else if(isCharacterCreated){
+            console.log('수정: ', selectedItemIds);
+            updateCustomCharacter(selectedItemIds);
+        }
+        navigate('/invite');
     }
 
-    const handleSave = () => {
-        
-    }
+    if (Object.keys(selectedItem).length === 0) {
+        return <div>로딩중입니다..^^</div>; 
+      }
 
   return (
     <>
@@ -53,11 +85,11 @@ export const Custom = () => {
         onClose={()=>setCompleteModal(false)} 
         text={"“파티 준비를 다 하셨나요?”"} 
         onConfirm={()=>handleSave()}/>}
-        <TopNavBack />
         <Container>
+        <TopNavBack />
             <MainContainer>
-                <CharacterBackground src={selectedItem.bg.imageUrl}>
-                    <CustomCharacter selectedItem={selectedItem}/>
+                <CharacterBackground src={selectedItem?.bg.imageUrl}>
+                    <CustomCharacter selectedItem={selectedItem} loadInitial={loadInitial}/>
                 </CharacterBackground>
                 <MiddleContainer>
                     {selectedCategory === 'head' && <ColorPalette>
@@ -69,7 +101,7 @@ export const Custom = () => {
                             />
                         ))}
                     </ColorPalette>}
-                    <CompleteButton onClick={handleComplete}>완료</CompleteButton>
+                    <CompleteButton onClick={()=>setCompleteModal(true)}>완료</CompleteButton>
                 </MiddleContainer>    
             </MainContainer>
             <CustomElementContainer>
@@ -130,12 +162,12 @@ const MainContainer = styled.div`
     align-items: center;
     width: 100%;
     gap: 1vh;
+
 `
 const CharacterBackground = styled.div`
-    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 90%;
     height: 45vh;
     backdrop-filter: blur(10px);
@@ -148,6 +180,14 @@ const CharacterBackground = styled.div`
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
+
+     //중앙정렬
+    & > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
 `
 
 const MiddleContainer = styled.div`
