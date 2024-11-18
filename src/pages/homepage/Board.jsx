@@ -20,6 +20,7 @@ const Board = () => {
   const { memberId } = useParams();
   const [letterdata, setLetterData] = useState(null);
   const navigate = useNavigate();
+  const [isSlideEnabled, setIsSlideEnabled] = useState(false); // 슬라이드 활성화 여부
 
   const accessToken = localStorage.getItem("accessToken");
 
@@ -32,6 +33,11 @@ const Board = () => {
         console.log(data); // 데이터를 출력
 
         setLetterData(data); // state에 저장
+
+        // 데이터 개수가 7개 이상일 때만 슬라이드 활성화
+        if (data.length > 6) {
+          setIsSlideEnabled(true);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -44,9 +50,10 @@ const Board = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    slidesPerRow: 3, // 각 행에 3개의 아이템씩 보여주기
+    arrows: isSlideEnabled,
     rows: 2,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
@@ -61,11 +68,10 @@ const Board = () => {
   const handleItemClick = (item) => {
     navigate("/letter", { state: item });
   };
-
   return (
     <BoardWrapper>
-      <SantaUp src="/image/BoardSanta1.png" alt="" />
-      <SantaDown src="/image/BoardSanta2.png" alt="" />
+      <SantaUp src="/image/BoardSanta1.png" alt="산타머리" />
+      <SantaDown src="/image/BoardSanta2.png" alt="산타다리" />
       <Container>
         <ImgBackground>
           <SliderWrapper>
@@ -151,18 +157,18 @@ const Container = styled.div`
 
 const SantaUp = styled.img`
   position: absolute;
-  top: -55px;
+  top: -25%;
   left: 15%;
   z-index: 10;
-  width: 120px;
+  width: 80px;
 `;
 
 const SantaDown = styled.img`
   position: absolute;
   z-index: 0;
-  width: 12%;
-  bottom: -15%;
-  right: 18%;
+  width: 70px;
+  bottom: -20%;
+  right: 15%;
 `;
 
 const ImgBackground = styled.div`
@@ -189,13 +195,13 @@ const WriteBtn = styled.img`
 `;
 
 const SliderWrapper = styled.div`
-  width: 80%; /* 슬라이더의 넓이를 80%로 설정 */
+  width: 80%;
   margin: 0 auto; /* 중앙 정렬 */
 `;
 
 const ItemRow = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap; /* 아이템들이 한 줄에 2개씩 나열되도록 설정 */
 `;
 
