@@ -21,6 +21,14 @@ export const Custom = () => {
 
     useEffect(()=>{
         setSelectedItem(initializedCustom);
+        
+        // 브라우저에 새로고침 방지 알림 표시
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue = ""; 
+          };
+          window.addEventListener("beforeunload", handleBeforeUnload);
+          return () => window.removeEventListener("beforeunload", handleBeforeUnload);
     },[])
 
     const handleCustomSelect = (id, imageUrl) => {
