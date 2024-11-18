@@ -85,8 +85,8 @@ export const Custom = () => {
         onClose={()=>setCompleteModal(false)} 
         text={"“파티 준비를 다 하셨나요?”"} 
         onConfirm={()=>handleSave()}/>}
-        <TopNavBack />
         <Container>
+        <TopNavBack />
             <MainContainer>
                 <CharacterBackground src={selectedItem?.bg.imageUrl}>
                     <CustomCharacter selectedItem={selectedItem} loadInitial={loadInitial}/>
