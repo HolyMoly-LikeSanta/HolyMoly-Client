@@ -155,6 +155,9 @@ const Container = styled.div`
   background-color: white;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const SantaBox = styled.div`
