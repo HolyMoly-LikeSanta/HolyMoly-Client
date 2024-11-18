@@ -14,7 +14,7 @@ export const getUserData = async () => {
 
     localStorage.setItem("memberId", response.data.memberId);
 
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }

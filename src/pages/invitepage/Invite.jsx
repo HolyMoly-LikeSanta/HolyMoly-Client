@@ -11,7 +11,6 @@ import { isCharacterCreatedRecoil, userCharacterRecoil } from "../../recoil/user
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
   const [showError, setShowError] = useState(false); // 에러 메시지 표시 여부
-  //const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
   const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
 

@@ -78,7 +78,7 @@ export const Custom = () => {
         <Container>
             <MainContainer>
                 <CharacterBackground src={selectedItem.bg.imageUrl}>
-                    <CustomCharacter selectedItem={selectedItem}/>
+                    <CustomCharacter selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
                 </CharacterBackground>
                 <MiddleContainer>
                     {selectedCategory === 'head' && <ColorPalette>

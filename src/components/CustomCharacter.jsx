@@ -1,9 +1,23 @@
 import React, { useEffect } from 'react'
+import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
+import { userCharacterRecoil } from '../recoil/userRecoil'
+import { CUSTOMITEMS } from '../constant/customData'
 
-export const CustomCharacter = ({selectedItem}) => {
+export const CustomCharacter = ({selectedItem, setSelectedItem}) => {
+    const initialCustomItems = useRecoilValue(userCharacterRecoil);
+    const idToImageUrl = (category, id) => {
+        return CUSTOMITEMS[category].filter((item)=> item.id === id).imageUrl || null;
+    }
+
     useEffect(()=>{
-        //커스텀 데이터 불러오기
+        setSelectedItem({
+            bg: {id: initialCustomItems.bgId, imageUrl: idToImageUrl('bg', initialCustomItems.bgId)},
+            head: {id: initialCustomItems.headId, imageUrl: idToImageUrl('head', initialCustomItems.headId)},
+            face: {id: initialCustomItems.faceId, imageUrl: idToImageUrl('face', initialCustomItems.faceId)},
+            clothes: {id: initialCustomItems.clothesId, imageUrl: idToImageUrl('clothes', initialCustomItems.clothesId)},
+            accessory: {id: initialCustomItems.accessoryId, imageUrl: idToImageUrl('accessory', initialCustomItems.accessoryId)}
+        })
     },[])
 
   return (
