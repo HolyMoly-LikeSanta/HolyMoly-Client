@@ -35,7 +35,7 @@ const Invite = () => {
 
   const handleReadyParty = () => {
     if(isCharacterCreated){
-      navigate('/');
+      navigate('/home');
     }
     else if(!isCharacterCreated){
       navigate('/custom');
