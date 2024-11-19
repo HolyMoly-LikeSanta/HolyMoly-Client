@@ -6,7 +6,6 @@ import { getUserData } from "../../apis/api";
 import { useRecoilState } from "recoil";
 import {
   isCharacterCreatedRecoil,
-  userCharacterRecoil,
 } from "../../recoil/userRecoil";
 import { useCheckAndGetPartyReady } from "../../hook/customUtil";
 import { Nav } from "../../components/Nav";

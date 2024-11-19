@@ -5,17 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getBoardLetterInvite } from "../../apis/api";
-import axios from "axios";
-
-// 반복될 이미지
-const images = [
-  "/image/letterImg/Letter1.png",
-  "/image/letterImg/Letter2.png",
-  "/image/letterImg/Letter3.png",
-  "/image/letterImg/Letter4.png",
-  "/image/letterImg/Letter5.png",
-  "/image/letterImg/Letter6.png",
-];
+import { LETTERIMAGES } from "../../constant/letterData";
 
 const Board = () => {
   const { memberId } = useParams();
@@ -60,7 +50,7 @@ const Board = () => {
   // 데이터와 이미지를 결합
   const dataWithImages = letterdata?.map((item, index) => ({
     ...item,
-    image: images[index % images.length],
+    image: LETTERIMAGES[index % LETTERIMAGES.length],
   }));
 
   const handleItemClick = (item) => {
