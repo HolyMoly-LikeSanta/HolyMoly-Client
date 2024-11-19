@@ -27,8 +27,10 @@ const Home = () => {
   return (
     <Container imageUrl={initializedCustom.bg.imageUrl}>
       <TopNavBack></TopNavBack>
-      <Board></Board>
-      <StageCharacter
+      <BoardContainer>
+        <Board></Board>
+      </BoardContainer>
+        <StageCharacter
         selectedItem={initializedCustom}
         loadInitial={loadInitial}
       />
@@ -46,4 +48,10 @@ const Container = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
 `;
+
+const BoardContainer = styled.div`
+  margin-bottom: 20vh;
+`
+
