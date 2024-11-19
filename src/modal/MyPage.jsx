@@ -65,6 +65,14 @@ const ModalContent = styled.div`
     
     position: absolute; /* 네비게이션 바 기준으로 위치를 설정 */
     top: 0; /* 네비게이션 바의 맨 위에 위치 */
+    @media (max-width: 1800px) {
+        left: 160px;
+        width: 200px;
+    }
+    @media (max-width: 1400px) {
+        left: 140px;
+        width: 200px;
+    }
     @media (max-width: 1280px) {
         left: 120px; 
         width: 200px; 
@@ -74,8 +82,12 @@ const ModalContent = styled.div`
         width: 200px; 
     }
     @media (max-width: 600px) {
-        left: 40px; /* 작은 화면에서 오른쪽 간격을 좁힘 */
+        left: 90px; /* 작은 화면에서 오른쪽 간격을 좁힘 */
         width: 150px; /* 작은 화면에서는 너비를 줄임 */
+    }
+    @media (max-width: 550px) {
+        left: 100px; /* 작은 화면에서 오른쪽 간격을 좁힘 */
+        width: 160px; /* 작은 화면에서는 너비를 줄임 */
     }
     @media (max-width: 430px) {
         left: 60px;
