@@ -63,11 +63,9 @@ export const Custom = () => {
             accessoryId: selectedItem.accessory.id,
         }
         if(!isCharacterCreated){
-            console.log('생성: ',selectedItemIds);
             createCustomCharacter(selectedItemIds);
         }
         else if(isCharacterCreated){
-            console.log('수정: ', selectedItemIds);
             updateCustomCharacter(selectedItemIds);
         }
         navigate('/invite');

@@ -32,10 +32,11 @@ export const MyPage = ({isMyPageOpen}) => {
             <ProfileName>{userData.name}</ProfileName>
         </ProfileHeader>
         <ProfileMiddle>
+        { isCharacter && 
             <UpdateContainer>
-                { isCharacter && <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>}
+               <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>}
                 <UpdateIcon src='/image/updateIcon.png'/>
-            </UpdateContainer>
+            </UpdateContainer>}
         </ProfileMiddle>
         <LogoutBtn onClick={()=>{handleLogout()}}>로그아웃</LogoutBtn>
     </ModalContent>

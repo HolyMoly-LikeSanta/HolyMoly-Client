@@ -10,7 +10,6 @@ export const getUserData = async () => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log(response);
 
     localStorage.setItem("memberId", response.data.memberId);
 
@@ -28,7 +27,6 @@ export const createBoard = async (accessToken) => {
       },
     });
 
-    console.log(response);
 
     return response;
   } catch (error) {
@@ -43,7 +41,6 @@ export const getBoardLetter = async (accessToken) => {
   try {
     const response = await axios.get(`${baseURL}/board/${memberId}/letters`);
 
-    console.log(response);
 
     return response.data;
   } catch (error) {
@@ -56,7 +53,6 @@ export const getBoardLetterInvite = async (accessToken, memberId) => {
   try {
     const response = await axios.get(`${baseURL}/board/${memberId}/letters`);
 
-    console.log(response);
 
     return response.data;
   } catch (error) {
@@ -68,8 +64,6 @@ export const getBoardLetterInvite = async (accessToken, memberId) => {
 export const postBoardLetter = async (nickname, letter) => {
   const invitermemberId = localStorage.getItem("inviterMemberId");
 
-  console.log(nickname);
-  console.log(letter);
   try {
     const response = await axios.post(
       `${baseURL}/board/${invitermemberId}/letter`,
