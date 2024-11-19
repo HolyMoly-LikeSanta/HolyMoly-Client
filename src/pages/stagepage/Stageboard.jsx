@@ -27,12 +27,6 @@ const Board = () => {
 
   useEffect(() => {
     console.log(memberId);
-    // const baseURL = `https://server.templ.es`;
-    // const response = axios.delete(`${baseURL}/board/1/letter/32`, {
-    //   headers: {
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // });
 
     localStorage.setItem("inviterMemberId", memberId);
 

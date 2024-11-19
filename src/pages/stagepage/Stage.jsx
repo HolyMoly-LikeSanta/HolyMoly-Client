@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import StageBoard from "../stagepage/Stageboard";
 import styled from "styled-components";
 import TopNavBackNoUser from "../../components/TopNavNoUser";
-import { StageCharacter } from "../../components/StageCharacter";
 import {
   useCheckAndGetPartyReady,
   useInitializeCustom,
 } from "../../hook/customUtil";
+import { CustomCharacter } from "../../components/CustomCharacter";
 
 const Stage = () => {
   const [loadInitial, setLoadInitial] = useState(false);
@@ -22,13 +22,15 @@ const Stage = () => {
     }
   }, []);
   return (
-    <Container>
+    <Container imageUrl={initializedCustom.bg.imageUrl}>
       <TopNavBackNoUser></TopNavBackNoUser>
+      <BoardContainer>
       <StageBoard></StageBoard>
-      <StageCharacter
+      </BoardContainer>
+      <CustomCharacter
         selectedItem={initializedCustom}
         loadInitial={loadInitial}
-      ></StageCharacter>
+      ></CustomCharacter>
     </Container>
   );
 };
@@ -44,3 +46,8 @@ const Container = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 `;
+
+const BoardContainer = styled.div`
+  margin-bottom: 20vh;
+  width: 100%;
+`

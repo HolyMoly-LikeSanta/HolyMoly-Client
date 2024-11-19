@@ -8,7 +8,6 @@ import {
   useCheckAndGetPartyReady,
   useInitializeCustom,
 } from "../../hook/customUtil";
-import { StageCharacter } from "../../components/StageCharacter";
 
 const Home = () => {
   const [loadInitial, setLoadInitial] = useState(false);
@@ -30,7 +29,7 @@ const Home = () => {
       <BoardContainer>
         <Board></Board>
       </BoardContainer>
-        <StageCharacter
+        <CustomCharacter
         selectedItem={initializedCustom}
         loadInitial={loadInitial}
       />
