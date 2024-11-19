@@ -46,7 +46,7 @@ export const MyPage = ({isMyPageOpen}) => {
 const ModalContent = styled.div`
     width: 186px;
     gap: 5%;
-    position: relative;
+    //position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,6 +62,29 @@ const ModalContent = styled.div`
     box-shadow: -2px 2px 4px 0px #FFFFFF inset,
                 -4px -4px 6px 0px #D1D5DB inset,
                 -0.4px -0.4px 2px 0px #00000066 inset;
+    
+    position: absolute; /* 네비게이션 바 기준으로 위치를 설정 */
+    top: 0; /* 네비게이션 바의 맨 위에 위치 */
+    @media (max-width: 1280px) {
+        left: 120px; 
+        width: 200px; 
+    }
+    @media (max-width: 820px) {
+        left: 110px; 
+        width: 200px; 
+    }
+    @media (max-width: 600px) {
+        left: 40px; /* 작은 화면에서 오른쪽 간격을 좁힘 */
+        width: 150px; /* 작은 화면에서는 너비를 줄임 */
+    }
+    @media (max-width: 430px) {
+        left: 60px;
+        width: 120px;
+    }
+    @media (max-width: 400px) {
+        left: 50px;
+        width: 110px;
+    }
 `
 
 const ProfileHeader = styled.div`

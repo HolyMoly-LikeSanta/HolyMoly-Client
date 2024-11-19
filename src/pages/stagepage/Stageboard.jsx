@@ -26,17 +26,12 @@ const Board = () => {
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    console.log(memberId);
-
     localStorage.setItem("inviterMemberId", memberId);
 
     const fetchData = async () => {
       try {
         const data = await getBoardLetterInvite(accessToken, memberId);
-        console.log(data);
-
         setLetterData(data);
-
         // 데이터 개수가 7개 이상일 때만 슬라이드 활성화
         if (data.length > 6) {
           setIsSlideEnabled(true);

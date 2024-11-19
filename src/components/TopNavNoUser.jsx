@@ -15,25 +15,12 @@ const TopNavBackNoUser = () => {
     <>
       <Container>
         <BackIconWrapper>
-          <BackIcon
-            src="/image/BackIcon.png"
-            alt="ArrowBack"
-            onClick={() => {
-              navigate(-1);
-            }}
-          />
         </BackIconWrapper>
-        <AppTitle onClick={() => navigate("/")}>
+        <AppTitle onClick={()=>navigate('/login')}>
           <img src="/image/HOLY_MOLY.png"></img>
-        </AppTitle>{" "}
+        </AppTitle>
         <UserIconWrapper>
-          <UserIcon
-            src="/image/UserIcon.png"
-            alt="ArrowBack"
-            onClick={() => {
-              handleMyPage();
-            }}
-          />
+          <UserIcon />
         </UserIconWrapper>
       </Container>
     </>
