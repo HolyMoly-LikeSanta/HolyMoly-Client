@@ -206,7 +206,7 @@ const FlexBox = styled.div`
   width: 100%;
   position: absolute;
   top: 100px;
-  height: calc(100vh - 70px); /* TopNavBack을 제외한 높이 */
+  // height: calc(100vh - 70px); /* TopNavBack을 제외한 높이 */
   max-height: calc(
     100vh - 70px
   ); /* 화면 높이에서 TopNavBack과 패딩을 뺀 최대 높이 */
