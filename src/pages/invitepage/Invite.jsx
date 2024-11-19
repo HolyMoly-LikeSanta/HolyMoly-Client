@@ -150,7 +150,7 @@ const slideUp = keyframes`
 const Container = styled.div`
   background-image: url("/image/BackgroundImg.png");
   background-size: cover; /* 배경 이미지 크기 자동 조정 */
-  background-position: center; /* 배경 이미지 중앙 정렬 */
+  background-position: top 80% right 50%; /* 배경 이미지 중앙 정렬 */
   background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
   background-color: white;
   height: 100%;
@@ -159,6 +159,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    background-position: center; /* 배경 이미지 중앙 정렬 */
+  }
 `;
 
 const SantaBox = styled.div`
