@@ -228,6 +228,7 @@ const BoardItem = styled.div`
   align-items: center;
   margin: 5px; /* 아이템 간 간격 */
   box-sizing: border-box;
+  cursor: pointer;
 
   &::after {
     content: "";

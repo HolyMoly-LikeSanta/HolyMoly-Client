@@ -93,6 +93,7 @@ const CloseIcon = styled.img`
   width: 1.5rem;
   top: 2rem;
   right: 2rem;
+  cursor: pointer;
 `;
 
 const FromBox = styled.div`
@@ -101,6 +102,7 @@ const FromBox = styled.div`
   flex-direction: column;
   overflow: hidden; /* FromBox 내부로 스크롤을 제한 */
   height: 100%; /* FromBox가 부모 요소에 맞게 확장되도록 설정 */
+
   span {
     font-size: 1.2rem;
   }
