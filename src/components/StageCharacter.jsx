@@ -38,7 +38,7 @@ export const StageCharacter = ({ selectedItem, loadInitial }) => {
 };
 
 const CharacterContainer = styled.div`
-  position: absolute;
+  position: relative;
   width: 80%;
   overflow: hidden;
   left: 50%;
@@ -47,6 +47,7 @@ const CharacterContainer = styled.div`
   @media screen and (max-width: 600px) {
     width: 100%;
   }
+  height: 100%;
 `;
 
 const Character = styled.img`
@@ -54,10 +55,14 @@ const Character = styled.img`
   border: none;
   width: 100%;
   z-index: 0;
+  height: auto; /* 비율을 유지 */
 `;
 
 const CustomItem = styled.img`
-  position: relative;
+ top: 0; /* 캐릭터의 기준과 동일하게 겹치도록 설정 */
+ left: 0; /* 캐릭터의 기준과 동일하게 겹치도록 설정 */
+ height: auto; /* 비율 유지 */
+  position: absolute;
   width: 100%;
   z-index: ${({ zIndex }) => zIndex || 0};
 `;
