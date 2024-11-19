@@ -49,9 +49,14 @@ const Container = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BoardContainer = styled.div`
   margin-bottom: 20vh;
+  width: 100%;
 `
 
