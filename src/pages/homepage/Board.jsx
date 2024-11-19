@@ -157,7 +157,7 @@ const Container = styled.div`
 
 const SantaUp = styled.img`
   position: absolute;
-  top: -25%;
+  top: -50px;
   left: 15%;
   z-index: 10;
   width: 80px;
@@ -167,7 +167,7 @@ const SantaDown = styled.img`
   position: absolute;
   z-index: 0;
   width: 70px;
-  bottom: -20%;
+  bottom: -40px;
   right: 15%;
 `;
 
