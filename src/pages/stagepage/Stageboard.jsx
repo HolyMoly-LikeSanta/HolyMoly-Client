@@ -255,5 +255,4 @@ const ItemText = styled.div`
   font-weight: bold;
   color: #000; /* 텍스트 색상 */
   z-index: 10; /* 이미지 위로 텍스트 표시 */
-  text-shadow: 0px 0px 10px black;
 `;
