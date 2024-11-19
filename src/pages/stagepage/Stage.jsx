@@ -34,10 +34,13 @@ const Stage = () => {
       <BoardContainer>
         <StageBoard></StageBoard>
       </BoardContainer>
-      <CustomCharacter
-        selectedItem={memberCharacter}
-        loadInitial={memberCharacter}
-      ></CustomCharacter>
+      <CustomCharacterContainer>
+        <ShadowImage src="/image/characterShadow.png" alt="Shadow" />
+        <CustomCharacter
+          selectedItem={memberCharacter}
+          loadInitial={memberCharacter}
+        />
+      </CustomCharacterContainer>
     </Container>
   );
 };
@@ -66,4 +69,18 @@ const BoardContainer = styled.div`
   @media screen and (max-width: 600px) {
     margin-bottom: 20vh;
   }
+`
+const CustomCharacterContainer = styled.div`
+  position: relative; /* CustomCharacter와 ShadowImage를 겹치도록 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ShadowImage = styled.img`
+  position: absolute;
+  width: 200px;
+  height: 82px;
+  bottom: 38px; /* 원하는 위치 조정 */
+  z-index: 1; /* CustomCharacter보다 뒤에 배치 */
 `;
