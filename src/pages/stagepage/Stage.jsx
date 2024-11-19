@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import StageBoard from "../stagepage/Stageboard";
 import styled from "styled-components";
 import TopNavBackNoUser from "../../components/TopNavNoUser";
-import {
-  useGetMemberCustom,
-} from "../../hook/customUtil";
+import { useGetMemberCustom } from "../../hook/customUtil";
 import { CustomCharacter } from "../../components/CustomCharacter";
 import { useParams } from "react-router-dom";
 
@@ -13,20 +11,21 @@ const Stage = () => {
   const [loadInitial, setLoadInitial] = useState(false);
   const [load, setLoad] = useState(true);
   const [selectedItem, setSelectedItem] = useState({});
-  const { memberCharacter, fetchAndSetMemberCustom } = useGetMemberCustom(memberId);
+  const { memberCharacter, fetchAndSetMemberCustom } =
+    useGetMemberCustom(memberId);
 
   useEffect(() => {
-    const getCustom = async() => {
+    const getCustom = async () => {
       await fetchAndSetMemberCustom();
       setLoad(false);
-    }
-    if(memberId){
-    getCustom()
+    };
+    if (memberId) {
+      getCustom();
     }
   }, [memberId]);
 
   if (load) {
-    return <div>로딩중임니다..^^</div>; 
+    return <div>로딩중임니다..^^</div>;
   }
 
   return (
@@ -60,8 +59,11 @@ const Container = styled.div`
   align-items: center;
 `;
 
-
 const BoardContainer = styled.div`
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
   width: 100%;
+
+  @media screen and (max-width: 600px) {
+    margin-bottom: 20vh;
+  }
 `;

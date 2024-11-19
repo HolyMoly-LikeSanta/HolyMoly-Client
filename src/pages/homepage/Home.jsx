@@ -29,7 +29,7 @@ const Home = () => {
       <BoardContainer>
         <Board></Board>
       </BoardContainer>
-        <CustomCharacter
+      <CustomCharacter
         selectedItem={initializedCustom}
         loadInitial={loadInitial}
       />
@@ -55,7 +55,10 @@ const Container = styled.div`
 `;
 
 const BoardContainer = styled.div`
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
   width: 100%;
-`
 
+  @media screen and (max-width: 600px) {
+    margin-bottom: 20vh;
+  }
+`;
