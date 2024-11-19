@@ -9,10 +9,10 @@ import { getBoardLetter, getBoardLetterInvite } from "../../apis/api";
 // 반복될 이미지
 const images = [
   "/image/letterImg/Letter1.png",
-  "/image/letterImg/Letter5.png",
   "/image/letterImg/Letter2.png",
-  "/image/letterImg/Letter4.png",
   "/image/letterImg/Letter3.png",
+  "/image/letterImg/Letter4.png",
+  "/image/letterImg/Letter5.png",
   "/image/letterImg/Letter6.png",
 ];
 
