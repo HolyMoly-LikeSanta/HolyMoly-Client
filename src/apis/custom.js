@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const baseURL = `https://server.templ.es/user/me`;
+const baseURL = `https://server.templ.es/user`;
 
 export const createCustomCharacter = async (selectedItem) => {
     const accessToken = localStorage.getItem('accessToken');
     try{
-        const response = await axios.post(`${baseURL}/character`,
+        const response = await axios.post(`${baseURL}/me/character`,
             selectedItem, {
                 headers: {Authorization: `Bearer ${accessToken}`}
             }
@@ -18,7 +18,7 @@ export const createCustomCharacter = async (selectedItem) => {
 export const updateCustomCharacter = async (selectedItem) => {
     const accessToken = localStorage.getItem('accessToken');
     try{
-        const response = await axios.patch(`${baseURL}/character`,
+        const response = await axios.patch(`${baseURL}/me/character`,
             selectedItem, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
@@ -34,7 +34,7 @@ export const checkPartyReadyAndgetCharacter = async() => {
 
     const accessToken = localStorage.getItem('accessToken');
     try{
-        const response = await axios.get(`${baseURL}/character`,{
+        const response = await axios.get(`${baseURL}/me/character`,{
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -45,3 +45,11 @@ export const checkPartyReadyAndgetCharacter = async() => {
     }
 }
 
+export const getMemberCustom = async (id) => {
+    try{
+        const response = await axios.get(`${baseURL}/${id}/character`)
+        return response.data;
+    }catch(e){
+        console.log(e);
+    }
+}
