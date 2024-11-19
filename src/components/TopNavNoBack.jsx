@@ -33,7 +33,7 @@ const TopNavBackNoBack = () => {
             }}
           />
         </BackIconWrapper>
-        <AppTitle onClick={() => navigate("/")}>
+        <AppTitle onClick={() => navigate("/invite")}>
           <img src="/image/HOLY_MOLY.png"></img>
         </AppTitle>{" "}
         <UserIconWrapper>

@@ -25,12 +25,9 @@ const Board = () => {
   const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    console.log(memberId);
-
     const fetchData = async () => {
       try {
         const data = await getBoardLetter(accessToken);
-        console.log(data); // 데이터를 출력
 
         setLetterData(data); // state에 저장
 

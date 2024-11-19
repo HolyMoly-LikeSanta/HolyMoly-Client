@@ -72,9 +72,6 @@ export const postBoardLetter = async (nickname, letter) => {
         authorNickname: nickname,
       }
     );
-
-    console.log(response);
-
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);
