@@ -161,7 +161,7 @@ const Container = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 600px) {
-    background-position: center; /* 배경 이미지 중앙 정렬 */
+    background-position: bottom; /* 배경 이미지 중앙 정렬 */
   }
 `;
 
