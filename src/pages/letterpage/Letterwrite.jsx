@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import TopNavNoUser from "../../components/TopNavNoUser";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "../../components/Modal";
 import { postBoardLetter } from "../../apis/api";
+import { Nav } from "../../components/Nav";
 
 const MAX_NICKNAME_LENGTH = 10;
 const MAX_LETTER_LENGTH = 500; // Adjust this to your desired max length
@@ -69,7 +69,7 @@ const Letterwrite = () => {
 
   return (
     <Container>
-      <TopNavNoUser></TopNavNoUser>
+      <Nav isBack={false} isNoUser={true}/>
       <FlexBox>
         <Border>
           <InnerBox>

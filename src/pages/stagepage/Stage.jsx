@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import StageBoard from "../stagepage/Stageboard";
 import styled from "styled-components";
-import TopNavBackNoUser from "../../components/TopNavNoUser";
 import { useGetMemberCustom } from "../../hook/customUtil";
 import { CustomCharacter } from "../../components/CustomCharacter";
 import { useParams } from "react-router-dom";
+import { Nav } from "../../components/Nav";
 
 const Stage = () => {
   const { memberId } = useParams(); // URL에서 id 추출
-  const [loadInitial, setLoadInitial] = useState(false);
   const [load, setLoad] = useState(true);
-  const [selectedItem, setSelectedItem] = useState({});
   const { memberCharacter, fetchAndSetMemberCustom } =
     useGetMemberCustom(memberId);
 
@@ -30,7 +28,7 @@ const Stage = () => {
 
   return (
     <Container imageUrl={memberCharacter?.bg.imageUrl}>
-      <TopNavBackNoUser></TopNavBackNoUser>
+      <Nav isBack={false} isNoUser={true}/>
       <BoardContainer>
         <StageBoard></StageBoard>
       </BoardContainer>

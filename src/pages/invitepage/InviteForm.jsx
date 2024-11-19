@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import TopNavBack from "../../components/TopNavBack";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Circle from "@uiw/react-color-circle";
 import { toPng } from "html-to-image";
 import { createBoard } from "../../apis/api";
+import { Nav } from "../../components/Nav";
 
 const MAX_NICKNAME_LENGTH = 10;
 
@@ -106,7 +106,7 @@ const InviteForm = () => {
 
   return (
     <Container>
-      <TopNavBack></TopNavBack>
+      <Nav isBack={true} isNoUser={false}/>
       <FlexBox>
         <Border ref={innerBoxRef} colorSelect={hex}>
           <InnerBox>

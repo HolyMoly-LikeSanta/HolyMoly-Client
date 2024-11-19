@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import TopNavBack from "../../components/TopNavBack";
 import Board from "./Board";
 import styled from "styled-components";
-import { createBoard, getBoardLetter, getUserData } from "../../apis/api";
 import { CustomCharacter } from "../../components/CustomCharacter";
 import {
   useCheckAndGetPartyReady,
   useInitializeCustom,
 } from "../../hook/customUtil";
+import { Nav } from "../../components/Nav";
 
 const Home = () => {
   const [loadInitial, setLoadInitial] = useState(false);
@@ -25,7 +24,7 @@ const Home = () => {
 
   return (
     <Container imageUrl={initializedCustom.bg.imageUrl}>
-      <TopNavBack></TopNavBack>
+      <Nav isBack={true} isNoUser={false}/>
       <BoardContainer>
         <Board></Board>
       </BoardContainer>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import TopNavBack from "../../components/TopNavBack";
 import styled from "styled-components";
+import { Nav } from "../../components/Nav";
 
 const Letter = () => {
   const { state } = useLocation(); // 전달된 상태에 접근
@@ -10,7 +10,7 @@ const Letter = () => {
   const navigate = useNavigate();
   return (
     <Container>
-      <TopNavBack></TopNavBack>
+      <Nav isBack={true} isNoUser={false}/>
       <FlexBox>
         <Border>
           <InnerBox>
