@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../auth/kakaoAuth";
-import TopNavBackNoBack from "../../components/TopNavNoBack";
+import TopNavNoBack from "../../components/TopNavNoBack";
 import { getUserData } from "../../apis/api";
 import { useRecoilState } from "recoil";
 import {
@@ -15,13 +15,15 @@ const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
   const [showError, setShowError] = useState(false); // 에러 메시지 표시 여부
   const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
-  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(isCharacterCreatedRecoil);
+  const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(
+    isCharacterCreatedRecoil
+  );
   const checkAndGetPartyReady = useCheckAndGetPartyReady();
 
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
-  
+
   useCheckAndGetPartyReady();
 
   const memberId = localStorage.getItem("memberId");
@@ -29,27 +31,25 @@ const Invite = () => {
     const initialize = async () => {
       await kakaoLogin();
       getUserData(accessToken);
-    }
+    };
     initialize();
-  },[]);
+  }, []);
 
   const handleReadyParty = () => {
-    if(isCharacterCreated){
-      navigate('/home');
+    if (isCharacterCreated) {
+      navigate("/home");
+    } else if (!isCharacterCreated) {
+      navigate("/custom");
     }
-    else if(!isCharacterCreated){
-      navigate('/custom');
-    }
-  }
+  };
 
   // 두 번째 버튼 클릭 시 FlowBtn 토글
   const handleSecondButtonClick = () => {
-    if(isCharacterCreated){
+    if (isCharacterCreated) {
       setIsFlowBtnVisible(!isFlowBtnVisible);
-    }
-    else if(!isCharacterCreated){
+    } else if (!isCharacterCreated) {
       setShowError(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setShowError(false);
       }, 3500);
     }
@@ -74,7 +74,7 @@ const Invite = () => {
 
   return (
     <Container>
-      <TopNavBackNoBack />
+      <TopNavNoBack />
 
       <BtnContainer>
         <SantaBox>
@@ -83,9 +83,9 @@ const Invite = () => {
         <BtnFlexBox>
           <MessageBox>
             {showError ? (
-              <ErrorBox>    
-                 <ErrorMessage>    
-                 <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
+              <ErrorBox>
+                <ErrorMessage>
+                  <img src="/image/ErrorIcon.png" alt="ErrorIcon" />
                   &nbsp;`크리스마스 파티 준비` 먼저 해주세요!
                 </ErrorMessage>
               </ErrorBox>

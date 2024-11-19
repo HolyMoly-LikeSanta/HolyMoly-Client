@@ -45,7 +45,7 @@ export default TopNavBackNoUser;
 const Container = styled.div`
   position: fixed;
   top: 0;
-  width: 90%;
+  width: 100%;
   max-width: 600px;
   max-height: 70px;
   height: 70px; // 네비게이션 바의 높이를 화면 비율에 맞춰 설정 (전체 화면의 10%)
@@ -87,7 +87,8 @@ const UserIcon = styled.img`
 const AppTitle = styled.div`
   flex-grow: 1;
   text-align: center;
+  width: 70%;
   img {
-    width: 55%;
+    width: 60%;
   }
 `;
