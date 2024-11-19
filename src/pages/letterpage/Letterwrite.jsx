@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import TopNavBack from "../../components/TopNavBack";
+import TopNavNoUser from "../../components/TopNavNoUser";
 import styled from "styled-components";
 import Modal from "../../components/Modal";
 import { postBoardLetter } from "../../apis/api";
@@ -69,7 +69,7 @@ const Letterwrite = () => {
 
   return (
     <Container>
-      <TopNavBack></TopNavBack>
+      <TopNavNoUser></TopNavNoUser>
       <FlexBox>
         <Border>
           <InnerBox>

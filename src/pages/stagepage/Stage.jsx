@@ -33,7 +33,7 @@ const Stage = () => {
     <Container imageUrl={memberCharacter?.bg.imageUrl}>
       <TopNavBackNoUser></TopNavBackNoUser>
       <BoardContainer>
-      <StageBoard></StageBoard>
+        <StageBoard></StageBoard>
       </BoardContainer>
       <CustomCharacter
         selectedItem={memberCharacter}
@@ -53,13 +53,15 @@ const Container = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  `;
+`;
+
 
 const BoardContainer = styled.div`
   margin-bottom: 20vh;
   width: 100%;
-`
+`;
