@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import TopNavBack from "../../components/TopNavBack";
 import Modal from "../../components/Modal";
 import { CUSTOMITEMS, HEADCOLORS } from "../../constant/customData";
 import { CustomCharacter } from "../../components/CustomCharacter";
@@ -12,6 +11,7 @@ import {
 } from "../../apis/custom";
 import { useNavigate } from "react-router-dom";
 import { useInitializeCustom } from "../../hook/customUtil";
+import { Nav } from "../../components/Nav";
 
 export const Custom = () => {
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ export const Custom = () => {
         />
       )}
       <Container>
-        <TopNavBack />
+        <Nav isBack={true} isNoUser={false} />
         <MainContainer>
           <CharacterBackground src={selectedItem?.bg.imageUrl}>
             <CustomCharacter

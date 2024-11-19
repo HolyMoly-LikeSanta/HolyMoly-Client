@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../auth/kakaoAuth";
-import TopNavNoBack from "../../components/TopNavNoBack";
 import { getUserData } from "../../apis/api";
 import { useRecoilState } from "recoil";
 import {
   isCharacterCreatedRecoil,
-  userCharacterRecoil,
 } from "../../recoil/userRecoil";
 import { useCheckAndGetPartyReady } from "../../hook/customUtil";
+import { Nav } from "../../components/Nav";
 
 const Invite = () => {
   const [isFlowBtnVisible, setIsFlowBtnVisible] = useState(false);
   const [showError, setShowError] = useState(false); // 에러 메시지 표시 여부
-  const [userCharacter, setUserCharacter] = useRecoilState(userCharacterRecoil);
   const [isCharacterCreated, setIsCharacterCreated] = useRecoilState(
     isCharacterCreatedRecoil
   );
@@ -74,8 +72,7 @@ const Invite = () => {
 
   return (
     <Container>
-      <TopNavNoBack />
-
+      <Nav isBack={false} isNoUser={false}/>
       <BtnContainer>
         <SantaBox>
           <img src="/image/Santa.png" alt="" />

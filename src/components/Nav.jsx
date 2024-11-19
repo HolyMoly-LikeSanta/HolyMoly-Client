@@ -1,19 +1,26 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { MyPage } from "../modal/MyPage";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components';
+import { MyPage } from '../modal/MyPage';
 
-const TopNavBack = () => {
-  const navigate = useNavigate();
-  const [isMyPageOpen, setIsMyPageOpen] = useState(false);
+export const Nav = ({isBack, isNoUser}) => {
+    const navigate = useNavigate();
+    const [isMyPageOpen, setIsMyPageOpen] = useState(false);
 
-  const handleMyPage = () => {
-    setIsMyPageOpen(!isMyPageOpen);
-  };
+    const handleMyPage = () => {
+      setIsMyPageOpen(!isMyPageOpen);
+    };
+
+    const handleTopClick = () => {
+        if(isNoUser){
+            navigate('/login');
+        }else{
+            navigate('/invite');
+        }
+    }
 
   return (
-    <>
-      <Container>
+    <Container>
         {isMyPageOpen && (
           <ModalOverlay onClick={() => setIsMyPageOpen(false)}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -24,33 +31,36 @@ const TopNavBack = () => {
             </ModalContent>
           </ModalOverlay>
         )}
-        <BackIconWrapper>
-          <BackIcon
-            src="/image/BackIcon.png"
-            alt="ArrowBack"
-            onClick={() => {
-              navigate(-1);
-            }}
-          />
-        </BackIconWrapper>
-        <AppTitle onClick={() => navigate("/invite")}>
-          <img src="/image/HOLY_MOLY.png"></img>
-        </AppTitle>{" "}
+                <div>
+                <BackIcon
+                  isBack={isBack}
+                  src="/image/BackIcon.png"
+                  alt="ArrowBack"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                />
+              </div>
+    <AppTitle
+      onClick={() => {
+        handleTopClick();
+      }}
+    >
+      <img src="/image/HOLY_MOLY.png"></img>
+    </AppTitle>
         <UserIconWrapper>
+        {!isNoUser &&
           <UserIcon
             src="/image/UserIcon.png"
             alt="ArrowBack"
             onClick={() => {
               handleMyPage();
             }}
-          />
+          />}
         </UserIconWrapper>
-      </Container>
-    </>
-  );
-};
-
-export default TopNavBack;
+  </Container>
+  )
+}
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -90,34 +100,33 @@ const Container = styled.div`
       var(--vh, 1vh) * 8
     ); // 작은 화면에서는 화면 비율에 맞게 높이 설정 전체 높이의 &%
   }
-
-  z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
 `;
-
-const BackIconWrapper = styled.div`
-  width: 15%; /* 고정된 크기 */
-  text-align: center;
-`;
-
-const UserIconWrapper = styled.div`
-  width: 15%; /* 고정된 크기 */
-  text-align: center;
-`;
-
 const BackIcon = styled.img`
   width: 1.2rem;
   cursor: pointer;
+  margin-left: 30px;
+  cursor: ${({ isBack }) => (isBack ? "pointer" : "default")};
+  visibility: ${({ isBack }) => (isBack ? "visible" : "hidden")};
+  pointer-events: ${({ isBack }) => (isBack ? "auto" : "none")}; /* 클릭 불가능 */
 `;
 
 const UserIcon = styled.img`
   width: 2rem;
   cursor: pointer;
+  margin-right: 30px;
 `;
 
 const AppTitle = styled.div`
   text-align: center;
-  width: 70%;
   img {
-    width: 60%;
+    width: 58%;
   }
+`;
+
+const UserIconWrapper = styled.div`
+  width: 15%; /* 고정된 크기 */
+  text-align: center;
 `;
