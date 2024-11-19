@@ -33,7 +33,9 @@ const Character = styled.img`
     border: none;
     width: 400px;
     height: 400px;
-    z-index: 0;
+    z-index: 0; 
+    width: 100%;
+    height: auto; /* 비율을 유지 */
 `
 
 const CustomItem = styled.img`
@@ -41,4 +43,7 @@ const CustomItem = styled.img`
     width: 400px;
     height: 400px;
     z-index: ${({zIndex}) => zIndex || 0};
+    top: 0; /* 캐릭터의 기준과 동일하게 겹치도록 설정 */
+    left: 0; /* 캐릭터의 기준과 동일하게 겹치도록 설정 */
+    height: auto; /* 비율 유지 */
 `

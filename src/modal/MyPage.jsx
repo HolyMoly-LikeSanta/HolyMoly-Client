@@ -34,7 +34,7 @@ export const MyPage = ({isMyPageOpen}) => {
         <ProfileMiddle>
         { isCharacter && 
             <UpdateContainer>
-               <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>}
+               <UpdateCharacterBtn onClick={()=>navigate('/custom')}>캐릭터 수정하기</UpdateCharacterBtn>
                 <UpdateIcon src='/image/updateIcon.png'/>
             </UpdateContainer>}
         </ProfileMiddle>

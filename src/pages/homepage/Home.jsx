@@ -8,7 +8,6 @@ import {
   useCheckAndGetPartyReady,
   useInitializeCustom,
 } from "../../hook/customUtil";
-import { StageCharacter } from "../../components/StageCharacter";
 
 const Home = () => {
   const [loadInitial, setLoadInitial] = useState(false);
@@ -27,8 +26,10 @@ const Home = () => {
   return (
     <Container imageUrl={initializedCustom.bg.imageUrl}>
       <TopNavBack></TopNavBack>
-      <Board></Board>
-      <StageCharacter
+      <BoardContainer>
+        <Board></Board>
+      </BoardContainer>
+        <CustomCharacter
         selectedItem={initializedCustom}
         loadInitial={loadInitial}
       />
@@ -46,4 +47,15 @@ const Container = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
+
+const BoardContainer = styled.div`
+  margin-bottom: 20vh;
+  width: 100%;
+`
+
