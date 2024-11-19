@@ -150,7 +150,7 @@ const slideUp = keyframes`
 const Container = styled.div`
   background-image: url("/image/BackgroundImg.png");
   background-size: cover; /* 배경 이미지 크기 자동 조정 */
-  background-position: top 80% right 50%; /* 배경 이미지 중앙 정렬 */
+  background-position: top 80% right 50%; /* 배경 하단이 보이게 */
   background-repeat: no-repeat; /* 배경 이미지 반복하지 않음 */
   background-color: white;
   height: 100%;
