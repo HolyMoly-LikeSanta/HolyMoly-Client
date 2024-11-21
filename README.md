@@ -44,6 +44,6 @@ https://holymoly-likesanta.netlify.app/
 
 ---
 
-### 🏆 멋쟁이사자처럼 12기 중커톤 우수상
+### 🏆 멋쟁이사자처럼 중앙대학교 12기 중커톤 우수상
 <img width="300" alt="image" src="https://github.com/user-attachments/assets/f5080d22-ce7b-4dd1-be67-fed293d77031" >
 
