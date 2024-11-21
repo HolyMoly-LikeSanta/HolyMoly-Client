@@ -41,3 +41,9 @@ https://holymoly-likesanta.netlify.app/
 - 프론트엔드: 변현석, 황인영
   - 변현석 : 초대장 만들기 및 공유, 게시판 작성 및 관리
   - 황인영 : 카카오 로그인, 캐릭터 커스텀, 마이페이지
+
+---
+
+### 🏆 멋쟁이사자처럼 12기 중커톤 우수상
+<img width="300" alt="image" src="https://github.com/user-attachments/assets/f5080d22-ce7b-4dd1-be67-fed293d77031" >
+
